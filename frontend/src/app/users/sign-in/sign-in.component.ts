@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UserService } from './../user.service';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
@@ -13,17 +14,25 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    UserService,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './sign-in.component.html',
 })
 export class SignInComponent {
+  private userService = inject(UserService);
+
   username = new FormControl('');
   password = new FormControl('');
 
   submit(event: Event) {
-    event.preventDefault();
     console.log('username:', this.username.value);
     console.log('password:', this.password.value);
+
+    event.preventDefault();
+
+    if (this.username.value && this.password.value) {
+      this.userService.signInUser(this.username.value, this.password.value);
+    }
   }
 }
