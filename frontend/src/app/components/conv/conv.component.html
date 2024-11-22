@@ -1,1 +1,61 @@
-<p>conv works!</p>
+<div class="flex flex-1 flex-col h-full w-full">
+  <div id="head" class="bg-[#515151] p-2">
+    <div class="flex gap-4">
+      <div class="avatar">
+        <div class="w-16 rounded-full">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col justify-between">
+        <h4 class="!text-lg !font-bold !m-0">{{ user.name }}</h4>
+        @if(user.online){
+        <h5 class="!text-base !font-light !m-0">Online</h5>
+        }@else {
+        <h5 class="!text-base !font-light !m-0">Offline</h5>
+        }
+      </div>
+    </div>
+  </div>
+  <div
+    id="content"
+    class="bg-white/20 h-full px-16 py-8 flex flex-col justify-end"
+  >
+    <div class="chat chat-start">
+      <div class="chat-bubble bg-[#515151] text-white text-lg">
+        You underestimate my power!
+      </div>
+    </div>
+    <div class="chat chat-end">
+      <div class="chat-bubble bg-pink-600 text-white text-lg">
+        You underestimate my power!
+      </div>
+    </div>
+  </div>
+  <div id="foot" class="bg-[#515151] p-2 px-4 flex gap-4 items-center">
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Emoji icon"
+      fontIcon="tag_faces"
+      class="scale-125"
+    />
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Add icon"
+      fontIcon="add"
+      class="scale-125"
+    />
+    <input
+      type="text"
+      placeholder="Type here"
+      class="input input-bordered w-full bg-[#333333]"
+    />
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Mic icon"
+      fontIcon="mic"
+      class="scale-125"
+    />
+  </div>
+</div>
