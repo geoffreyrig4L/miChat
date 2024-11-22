@@ -12,6 +12,10 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@environments/*": ["./src/environments/*"]
+    },
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
