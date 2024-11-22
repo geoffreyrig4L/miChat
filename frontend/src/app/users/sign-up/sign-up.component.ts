@@ -24,8 +24,8 @@ export class SignUpComponent {
 
   submit(event: Event) {
     event.preventDefault();
-    console.log('email:', this.email.value);
-    console.log('username:', this.username.value);
-    console.log('password:', this.password.value);
+    // console.log('email:', this.email.value);
+    // console.log('username:', this.username.value);
+    // console.log('password:', this.password.value);
   }
 }
