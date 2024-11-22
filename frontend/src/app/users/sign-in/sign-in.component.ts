@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    UserService,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './sign-in.component.html',
@@ -26,9 +25,6 @@ export class SignInComponent {
   password = new FormControl('');
 
   submit(event: Event) {
-    console.log('username:', this.username.value);
-    console.log('password:', this.password.value);
-
     event.preventDefault();
 
     if (this.username.value && this.password.value) {

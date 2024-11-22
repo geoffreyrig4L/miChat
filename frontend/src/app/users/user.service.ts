@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Component, Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { User } from './user.interface';
@@ -12,6 +12,8 @@ export class UserService {
   readonly url = 'https://jsonplaceholder.typicode.com/users';
 
   signInUser(username: string, password: string): Observable<User> {
+    console.log(username, password);
+
     return this.http
       .post<User>(this.url, {
         username,
