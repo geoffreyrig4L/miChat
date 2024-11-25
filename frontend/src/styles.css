@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --electric-violet: oklch(53.18% 0.28 296.97);
+  --vivid-pink: oklch(69.02% 0.277 332.77);
+  --orange-red: oklch(63.32% 0.24 31.68);
+
+  --red-to-pink-to-purple-vertical-gradient: linear-gradient(
+    180deg,
+    var(--orange-red) 0%,
+    var(--vivid-pink) 50%,
+    var(--electric-violet) 100%
+  );
+}
+
 html,
 body {
   margin: 0;
@@ -22,4 +35,9 @@ body {
 
 body * {
   color: white;
+}
+
+.border-right-gradient {
+  border-right: 4px solid transparent;
+  border-image: var(--red-to-pink-to-purple-vertical-gradient) 1;
 }
