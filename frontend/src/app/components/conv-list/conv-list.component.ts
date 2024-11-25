@@ -5,12 +5,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-conv-list',
   imports: [MatDividerModule, MatButtonModule, MatIconModule, NgClass],
-  templateUrl: './list.component.html',
+  templateUrl: './conv-list.component.html',
   standalone: true,
 })
-export class ListComponent {
+export class ConvListComponent {
   list: { name: string; imgUrl: string; lastMsg: string }[] = [
     { name: 'Romain Bidault', imgUrl: '', lastMsg: 'message numéro 1' },
     { name: 'Geoffrey Rigal', imgUrl: '', lastMsg: 'message numéro 2' },

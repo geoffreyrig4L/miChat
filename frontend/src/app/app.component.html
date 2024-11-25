@@ -81,7 +81,7 @@
 
 <main class="bg-white/20 h-full w-1/4 border-right-gradient">
   @if (isAuth) {
-  <app-list />
+  <app-conv-list />
   }@else {
   <div class="content">
     <nav>
@@ -92,10 +92,7 @@
   </div>
   }
 </main>
+
 <div class="w-3/4">
-  @if (isAuth) {
   <router-outlet />
-  }@else {
-  <sign-in />
-  }
 </div>
