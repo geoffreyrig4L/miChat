@@ -5,6 +5,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '@app/guard/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sign-in',
@@ -20,6 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class SignInComponent {
   private userService = inject(UserService);
+  private authService = inject(AuthService);
+  private route = inject(Router);
 
   username = new FormControl('');
   password = new FormControl('');
@@ -31,7 +35,10 @@ export class SignInComponent {
       this.userService
         .signInUser(this.username.value, this.password.value)
         .subscribe({
-          next: (user) => console.log('Utilisateur connecté :', user),
+          next: (user) => {
+            this.authService.signIn();
+            this.route.navigateByUrl('/1');
+          },
           error: (err) => console.error('Erreur lors de la connexion :', err),
         });
     }
