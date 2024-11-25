@@ -41,3 +41,7 @@ body * {
   border-right: 4px solid transparent;
   border-image: var(--red-to-pink-to-purple-vertical-gradient) 1;
 }
+
+router-outlet + * {
+  flex: 1;
+}
