@@ -48,7 +48,7 @@
 
   .content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 15rem;
   }
 
@@ -80,13 +80,22 @@
 </style>
 
 <main class="bg-white/20 h-full w-1/4 border-right-gradient">
-  <!-- <div class="content">
+  @if (isAuth) {
+  <app-list />
+  }@else {
+  <div class="content">
     <nav>
       <h1 class="mb-[500px]">Welcome to miChat 👋</h1>
       <a mat-flat-button href="/sign-in">Sign In</a>
       <a mat-flat-button href="/docs">Angular Docs</a>
     </nav>
-  </div> -->
-  <app-list />
+  </div>
+  }
 </main>
-<div class="w-3/4"><router-outlet /></div>
+<div class="w-3/4">
+  @if (isAuth) {
+  <router-outlet />
+  }@else {
+  <sign-in />
+  }
+</div>
