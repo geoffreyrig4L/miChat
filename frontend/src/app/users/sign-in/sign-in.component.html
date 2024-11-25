@@ -1,0 +1,29 @@
+<div class="flex flex-col space-y-8">
+  <h1 class="!mb-8">Complete your informations</h1>
+  <form (submit)="submit($event)" class="flex flex-col space-y-5">
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        [formControl]="username"
+        type="username"
+        id="username"
+        name="username"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [formControl]="password"
+        type="password"
+        id="password"
+        name="password"
+        required
+      />
+    </mat-form-field>
+    <button mat-flat-button type="submit">Sign in</button>
+  </form>
+  <a class="underline" href="/sign-up">Don't you have any account ?</a>
+</div>

@@ -1,10 +1,13 @@
 import { Routes } from '@angular/router';
+
 import { ConvComponent } from './components/conv/conv.component';
-import { DocsComponent } from './features/docs/docs.component';
-import { SignInComponent } from './features/sign-in/sign-in.component';
+import { SignInComponent } from './users/sign-in/sign-in.component';
+import { DocsComponent } from './docs/docs.component';
+import { SignUpComponent } from './users/sign-up/sign-up.component';
 
 export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'docs', component: DocsComponent },
   { path: 'conversations', component: ConvComponent },
 ];
