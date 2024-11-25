@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
 import { ConvListComponent } from '@app/components/conv-list/conv-list.component';
 import { SignInComponent } from '@components/users/sign-in/sign-in.component';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,5 @@ import { SignInComponent } from '@components/users/sign-in/sign-in.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'miChat';
-
-  isAuth: boolean = false;
+  constructor(public authService: AuthService) {}
 }

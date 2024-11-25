@@ -1,3 +1,4 @@
+import { AuthService } from './../../../auth/auth.service';
 import { UserService } from './../user.service';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class SignInComponent {
   private userService = inject(UserService);
 
+  constructor(public authService: AuthService) {}
+
   username = new FormControl('');
   password = new FormControl('');
 
@@ -31,7 +34,12 @@ export class SignInComponent {
       this.userService
         .signInUser(this.username.value, this.password.value)
         .subscribe({
-          next: (user) => console.log('Utilisateur connecté :', user),
+          next: (user) => {
+            console.log('Utilisateur connecté :', user);
+
+            this.authService.signIn();
+            // this.router.navigateByUrl('/');
+          },
           error: (err) => console.error('Erreur lors de la connexion :', err),
         });
     }

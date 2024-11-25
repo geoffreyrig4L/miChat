@@ -6,6 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatIconModule],
   templateUrl: './conv.component.html',
   standalone: true,
+  styles: [
+    `
+      :host {
+        flex: 1;
+      }
+    `,
+  ],
 })
 export class ConvComponent {
   user: { name: string; imgUrl: string; online: boolean } = {
