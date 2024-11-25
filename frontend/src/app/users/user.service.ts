@@ -10,16 +10,27 @@ import { User } from './user.interface';
 export class UserService {
   private http = inject(HttpClient);
   private user = signal<User | null>(null);
-  readonly url = environment.apiUrl + '/user/sign-in';
+  readonly url = environment.apiUrl;
 
   signInUser(username: string, password: string): Observable<User> {
-    console.log(this.url);
-    console.log(username, password);
-
     return this.http
-      .post<User>(this.url, {
+      .post<User>(this.url + '/user/sign-in', {
         username,
         password,
+      })
+      .pipe(tap((user) => this.user.set(user)));
+  }
+
+  signUpUser(
+    username: string,
+    password: string,
+    email: string
+  ): Observable<User> {
+    return this.http
+      .post<User>(this.url + '/user/sign-up', {
+        username,
+        password,
+        email,
       })
       .pipe(tap((user) => this.user.set(user)));
   }

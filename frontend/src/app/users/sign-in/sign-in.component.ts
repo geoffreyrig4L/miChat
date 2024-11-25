@@ -28,7 +28,12 @@ export class SignInComponent {
     event.preventDefault();
 
     if (this.username.value && this.password.value) {
-      this.userService.signInUser(this.username.value, this.password.value);
+      this.userService
+        .signInUser(this.username.value, this.password.value)
+        .subscribe({
+          next: (user) => console.log('Utilisateur connecté :', user),
+          error: (err) => console.error('Erreur lors de la connexion :', err),
+        });
     }
   }
 }
