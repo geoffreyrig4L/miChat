@@ -1,8 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-conv-list',
@@ -10,11 +11,26 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './conv-list.component.html',
   standalone: true,
 })
-export class ConvListComponent {
-  list: { name: string; imgUrl: string; lastMsg: string }[] = [
-    { name: 'Romain Bidault', imgUrl: '', lastMsg: 'message numéro 1' },
-    { name: 'Geoffrey Rigal', imgUrl: '', lastMsg: 'message numéro 2' },
-    { name: 'Killian Gassin', imgUrl: '', lastMsg: 'message numéro 3' },
-    { name: 'Alexis Borges', imgUrl: '', lastMsg: 'message numéro 4' },
+export class ConvListComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
+  idConv: null | number = null;
+
+  list: { id: number; name: string; imgUrl: string; lastMsg: string }[] = [
+    { id: 1, name: 'Romain Bidault', imgUrl: '', lastMsg: 'message numéro 1' },
+    { id: 2, name: 'Geoffrey Rigal', imgUrl: '', lastMsg: 'message numéro 2' },
+    { id: 3, name: 'Killian Gassin', imgUrl: '', lastMsg: 'message numéro 3' },
+    { id: 4, name: 'Alexis Borges', imgUrl: '', lastMsg: 'message numéro 4' },
   ];
+
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      if (params['id']) this.idConv = +params['id'];
+    });
+  }
+
+  nav(id: number) {
+    this.router.navigate(['/' + id]);
+  }
 }
