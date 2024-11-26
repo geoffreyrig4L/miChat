@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '@app/guard/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../user.interface';
 
 @Component({
   selector: 'sign-in',
@@ -35,11 +36,12 @@ export class SignInComponent {
       this.userService
         .signInUser(this.username.value, this.password.value)
         .subscribe({
-          next: (user) => {
-            this.authService.signIn();
-            this.route.navigateByUrl('/1');
+          next: (user: User) => {
+            this.authService.signIn(user);
+            this.route.navigateByUrl('/');
           },
-          error: (err) => console.error('Erreur lors de la connexion :', err),
+          error: (err) =>
+            alert('Erreur lors de la connexion : \n' + err.message),
         });
     }
   }

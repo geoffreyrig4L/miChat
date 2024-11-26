@@ -8,8 +8,10 @@ import { User } from 'src/schemas/User.schema';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  get(userDto: UserDto) {
-    return this.userModel.find(userDto);
+  signIn(userDto: UserDto): Promise<User | null> {
+    return this.userModel
+      .findOne({ username: userDto.username, password: userDto.password })
+      .exec();
   }
 
   create(userDto: UserDto) {
