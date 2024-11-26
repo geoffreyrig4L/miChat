@@ -1,10 +1,11 @@
-import { UserService } from './../user.service';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Router } from '@angular/router';
+import { UserService } from './../user.service';
 
 @Component({
   selector: 'sign-up',
@@ -20,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class SignUpComponent {
   private userService = inject(UserService);
+  private route = inject(Router);
 
   username = new FormControl('');
   email = new FormControl('');
@@ -32,7 +34,9 @@ export class SignUpComponent {
       this.userService
         .signUpUser(this.username.value, this.password.value, this.email.value)
         .subscribe({
-          next: (user) => console.log('Utilisateur connecté :', user),
+          next: () => {
+            this.route.navigateByUrl('/sign-in');
+          },
           error: (err) => console.error('Erreur lors de la connexion :', err),
         });
     }
