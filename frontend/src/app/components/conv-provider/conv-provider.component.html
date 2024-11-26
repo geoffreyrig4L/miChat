@@ -1,0 +1,14 @@
+<main class="flex flex-row w-full h-full">
+  <div class="w-1/4">
+    <app-conv-list />
+  </div>
+  <div class="flex-1 bg-[#515151]">
+    @if(idConv){
+    <app-conv />
+    }@else {
+    <div class="flex justify-center items-center h-full w-full">
+      <p class="text-xl">Please select a conversation !</p>
+    </div>
+    }
+  </div>
+</main>
