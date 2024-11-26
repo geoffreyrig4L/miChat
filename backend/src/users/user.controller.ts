@@ -7,14 +7,12 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('sign-in')
-  signIn(@Body() userDto: UserDto): void {
-    console.log(userDto);
-    this.userService.get();
+  signIn(@Body() userDto: UserDto) {
+    return this.userService.get(userDto);
   }
 
   @Post('sign-up')
-  signUp(@Body() userDto: UserDto): void {
-    console.log(userDto);
-    this.userService.create();
+  signUp(@Body() userDto: UserDto) {
+    return this.userService.create(userDto);
   }
 }
