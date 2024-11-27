@@ -2,12 +2,12 @@ import { NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-conv-list',
-  imports: [MatDividerModule, MatButtonModule, MatIconModule, NgClass],
+  imports: [MatDividerModule, MatButtonModule, NgClass, SearchBarComponent],
   templateUrl: './conv-list.component.html',
   standalone: true,
 })
