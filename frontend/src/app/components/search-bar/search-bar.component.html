@@ -18,7 +18,7 @@
       @for (item of list; track item) {
       <li
         class="w-full"
-        onclick="modal_send_msg.showModal()"
+        onclick="modal_start_conv.showModal()"
         (click)="test(item)"
       >
         <div class="flex justify-between w-full">
@@ -48,34 +48,8 @@
     </ul>
   </div>
 </div>
-<dialog id="modal_send_msg" class="modal">
-  <div class="modal-box bg-[#333333]">
-    <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-        ✕
-      </button>
-    </form>
-    <div class="flex items-center gap-4">
-      <div class="avatar online">
-        <div class="w-12 rounded-full">
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-          />
-        </div>
-      </div>
-      <h4 class="!text-lg !font-bold !m-0">{{ userSelected?.name }}</h4>
-    </div>
-    <p class="py-8 text-base">Send a message to start the conversation</p>
-    <div class="flex gap-4">
-      <input
-        type="text"
-        placeholder="Type here"
-        class="input input-bordered w-full bg-[#515151] text-white"
-      />
-      <button class="btn bg-pink-600 hover:bg-pink-800 text-white">
-        Send
-        <mat-icon aria-hidden="false" aria-label="Send icon" fontIcon="send" />
-      </button>
-    </div>
-  </div>
-</dialog>
+<app-modal-start-conv
+  [id]="userSelectedId"
+  [name]="userSelectedName"
+  [imgUrl]="userSelectedImgUrl"
+/>

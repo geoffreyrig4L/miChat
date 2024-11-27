@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { ModalStartConvComponent } from '../modal-start-conv/modal-start-conv.component';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [MatIconModule],
+  imports: [MatIconModule, ModalStartConvComponent],
   templateUrl: './search-bar.component.html',
 })
 export class SearchBarComponent {
-  userSelected: null | {
-    id: number;
-    name: string;
-    imgUrl: string;
-    lastMsg: string;
-  } = null;
+  userSelectedId = NaN;
+  userSelectedName = '';
+  userSelectedImgUrl = '';
 
   list: { id: number; name: string; imgUrl: string; lastMsg: string }[] = [
     { id: 1, name: 'Romain Bidault', imgUrl: '', lastMsg: 'message numéro 1' },
@@ -22,6 +20,8 @@ export class SearchBarComponent {
   ];
 
   test(user: { id: number; name: string; imgUrl: string; lastMsg: string }) {
-    this.userSelected = user;
+    this.userSelectedId = user.id;
+    this.userSelectedName = user.name;
+    this.userSelectedImgUrl = user.imgUrl;
   }
 }
