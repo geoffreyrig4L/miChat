@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
-import { User } from './user.interface';
+import { Observable, tap } from 'rxjs';
+import { User } from '../interface/user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private http = inject(HttpClient);
+  public users = signal<User[]>([]);
   readonly url = environment.apiUrl;
 
   signInUser(username: string, password: string): Observable<User> {
@@ -28,5 +29,11 @@ export class UserService {
       password,
       email,
     });
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http
+      .get<User[]>(this.url + '/user/all')
+      .pipe(tap((users) => this.users.set(users)));
   }
 }

@@ -1,13 +1,13 @@
-import { UserService } from './../user.service';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthService } from '@app/guard/auth.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
-import { User } from '../user.interface';
+import { AuthService } from '@app/guard/auth.service';
+import { User } from '@app/interface/user.interface';
+import { UserService } from '@app/services/user.service';
 
 @Component({
   selector: 'sign-in',

@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
-import { UserService } from './../user.service';
+import { UserService } from '@app/services/user.service';
 
 @Component({
   selector: 'sign-up',
