@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpException,
   HttpStatus,
   Post,
@@ -11,6 +12,11 @@ import { UserService } from './user.service';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Get('all')
+  async getAll() {
+    return this.userService.getAll();
+  }
 
   @Post('sign-in')
   async signIn(@Body() userDto: UserDto) {
