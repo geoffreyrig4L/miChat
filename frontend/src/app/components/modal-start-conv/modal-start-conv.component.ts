@@ -7,7 +7,7 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './modal-start-conv.component.html',
 })
 export class ModalStartConvComponent {
-  @Input() id: number = 0;
+  @Input() id: string = '';
   @Input() name: string = '';
   @Input() imgUrl: string = '';
 }

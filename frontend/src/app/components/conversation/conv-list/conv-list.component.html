@@ -11,8 +11,8 @@
     @for (item of listConv; track item) {
     <li
       class="my-4 cursor-pointer px-4 py-2 !m-0"
-      [ngClass]="item.id == idConv ? 'bg-[#515151]' : ''"
-      (click)="nav(item.id)"
+      [ngClass]="item.interlocutor._id == idConv ? 'bg-[#515151]' : ''"
+      (click)="nav(item.interlocutor._id)"
     >
       <div class="flex gap-4">
         <div class="avatar online">
@@ -23,9 +23,12 @@
           </div>
         </div>
         <div class="flex flex-col justify-between">
-          <h4 class="!text-lg !font-bold !m-0">{{ item.name }}</h4>
+          <h4 class="!text-lg !font-bold !m-0">
+            {{ item.interlocutor.username }}
+          </h4>
           <h5 class="!text-base !font-semibold !m-0 !italic">
-            {{ item.lastMsg }}
+            <!-- {{ item.lastMsg }} -->
+            "test"
           </h5>
         </div>
       </div>
