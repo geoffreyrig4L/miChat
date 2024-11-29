@@ -12,7 +12,7 @@ import { ModalStartConvComponent } from '../modal-start-conv/modal-start-conv.co
 export class SearchBarComponent implements OnInit {
   private userService = inject(UserService);
 
-  userSelectedId = NaN;
+  userSelectedId = '';
   userSelectedName = '';
   userSelectedImgUrl = '';
 
@@ -23,15 +23,15 @@ export class SearchBarComponent implements OnInit {
   //   { id: 4, name: 'Alexis Borges', imgUrl: '', lastMsg: 'message numéro 4' },
   // ];
 
-  list = this.userService.users;
+  list: User[] = [];
 
   selectUser(user: User) {
-    this.userSelectedId = user.id;
+    this.userSelectedId = user._id;
     this.userSelectedName = user.username;
     this.userSelectedImgUrl = '';
   }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe();
+    this.userService.getUsers().subscribe((response) => (this.list = response));
   }
 }

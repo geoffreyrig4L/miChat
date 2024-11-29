@@ -3,7 +3,8 @@ import { Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { SearchBarComponent } from '@app/components/search-bar/search-bar.component';
+import { Conversation } from '@app/interface/conversation.interface';
 
 @Component({
   selector: 'app-conv-list',
@@ -14,16 +15,11 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 export class ConvListComponent {
   private router = inject(Router);
 
-  @Input() idConv: null | number = null;
+  @Input() idConv: null | string = null;
 
-  @Input() listConv: {
-    id: number;
-    name: string;
-    imgUrl: string;
-    lastMsg: string;
-  }[] = [];
+  @Input() listConv: Conversation[] = [];
 
-  nav(id: number) {
+  nav(id: string) {
     this.router.navigate(['/' + id]);
   }
 }
