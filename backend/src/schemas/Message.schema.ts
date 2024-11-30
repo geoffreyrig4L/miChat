@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { User } from './User.schema';
+import { Conversation } from './Conversation.schema';
 
 @Schema()
 export class Message {
@@ -10,6 +11,9 @@ export class Message {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   receiver: User;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' })
+  conversation: Conversation;
   // receiver: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: true })

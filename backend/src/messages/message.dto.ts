@@ -8,6 +8,9 @@ export class MessageDto {
   readonly receiver: string;
 
   @IsNotEmpty()
+  readonly conversation: string;
+
+  @IsNotEmpty()
   @IsString()
   readonly content: string;
 }
