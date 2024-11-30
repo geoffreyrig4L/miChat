@@ -12,7 +12,7 @@ export class UserService {
   readonly url = environment.apiUrl;
 
   signInUser(username: string, password: string): Observable<User> {
-    return this.http.post<User>(this.url + '/user/sign-in', {
+    return this.http.post<User>(this.url + '/auth/sign-in', {
       username,
       password,
     });
@@ -23,7 +23,7 @@ export class UserService {
     password: string,
     email: string
   ): Observable<User> {
-    return this.http.post<User>(this.url + '/user/sign-up', {
+    return this.http.post<User>(this.url + '/auth/sign-up', {
       username,
       password,
       email,
