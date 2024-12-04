@@ -13,7 +13,7 @@ export class MessageService {
     private messageModel: Model<Message>,
     @InjectModel(User.name)
     private userModel: Model<User>,
-    @InjectModel(User.name)
+    @InjectModel(Conversation.name)
     private conversationModel: Model<Conversation>,
   ) {}
 
@@ -22,13 +22,14 @@ export class MessageService {
   }
 
   async create({ sender, receiver, conversation, ...messageDto }: MessageDto) {
-    const findSender = this.userModel.findById(sender);
+    const findSender = await this.userModel.findById(sender);
     if (!findSender) throw new HttpException('Sender not found', 404);
 
-    const findReceiver = this.userModel.findById(receiver);
+    const findReceiver = await this.userModel.findById(receiver);
     if (!findReceiver) throw new HttpException('Receiver not found', 404);
 
-    const findConversation = this.conversationModel.findById(conversation);
+    const findConversation =
+      await this.conversationModel.findById(conversation);
     if (!findConversation)
       throw new HttpException('Conversation not found', 404);
 
@@ -41,10 +42,10 @@ export class MessageService {
 
     const savedMessage = await newMessage.save();
 
-    await findSender.updateOne({
+    await findConversation.updateOne({
       $push: { messages: savedMessage._id },
     });
-    await findConversation.updateOne({
+    await findSender.updateOne({
       $push: { messages: savedMessage._id },
     });
     return savedMessage;

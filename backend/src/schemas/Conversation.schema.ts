@@ -5,9 +5,8 @@ import { Message } from './Message.schema';
 
 @Schema()
 export class Conversation {
-  //TODO
-  // @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'User', required: true })
-  // users: User[];
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'User', required: true })
+  users: User[];
 
   @Prop({ required: true, default: Date.now() })
   created_at: Date;
