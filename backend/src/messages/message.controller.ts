@@ -19,7 +19,7 @@ export class MessageController {
   }
 
   //TODO add token verification
-  // @UsePipes(new ValidationPipe())
+  @UsePipes(new ValidationPipe())
   @Post()
   async create(@Body() messageDto: MessageDto) {
     return this.messageService.create(messageDto);

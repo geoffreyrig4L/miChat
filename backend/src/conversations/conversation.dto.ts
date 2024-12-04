@@ -1,5 +1,5 @@
-import { UserDto } from 'src/users/user.dto';
+// import { UserDto } from 'src/users/user.dto';
 
 export class ConversationDto {
-  readonly users: UserDto[];
+  // readonly users: UserDto[];
 }

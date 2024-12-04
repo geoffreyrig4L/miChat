@@ -12,7 +12,7 @@ export class ConversationService {
   ) {}
 
   getAll(): Promise<Conversation[] | null> {
-    return this.conversationModel.find();
+    return this.conversationModel.find().populate(['messages']);
   }
 
   getOwn(id: string): Promise<Conversation[] | null> {

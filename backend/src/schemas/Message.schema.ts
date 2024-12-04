@@ -5,16 +5,18 @@ import { Conversation } from './Conversation.schema';
 
 @Schema()
 export class Message {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   sender: User;
-  // sender: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   receiver: User;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Conversation',
+    required: true,
+  })
   conversation: Conversation;
-  // receiver: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: true })
   content: string;
