@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@src/auth/auth.guard';
 import { ConversationDto } from './conversation.dto';
 import { ConversationService } from './conversation.service';
 
@@ -11,9 +12,10 @@ export class ConversationController {
     return this.conversationService.getAll();
   }
 
-  @Get(':id')
-  async getOwn(@Param('id') id: string) {
-    return this.conversationService.getOwn(id);
+  @UseGuards(AuthGuard)
+  @Get()
+  async getOwn(@Req() request) {
+    return this.conversationService.getOwn(request.user);
   }
 
   @Post()

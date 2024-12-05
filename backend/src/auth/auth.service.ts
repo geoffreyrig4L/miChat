@@ -10,7 +10,7 @@ import { UserDto } from '@src/users/user.dto';
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-    private readonly JWTService: JwtService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async signIn(userDto: UserDto) {
@@ -29,7 +29,7 @@ export class AuthService {
     }
 
     const payload = { user: user._id };
-    const token = this.JWTService.sign(payload, {
+    const token = this.jwtService.sign(payload, {
       expiresIn: '6h',
       secret: process.env.SECRET_KEY,
     });
@@ -38,6 +38,17 @@ export class AuthService {
       token,
       user,
     };
+  }
+
+  async validateToken(token: string): Promise<any> {
+    try {
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: process.env.SECRET_KEY,
+      });
+      return payload;
+    } catch (err) {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
   }
 
   async signUp(userDto: UserDto): Promise<User> {

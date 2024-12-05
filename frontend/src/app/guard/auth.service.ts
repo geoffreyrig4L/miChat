@@ -6,7 +6,7 @@ import { User } from '@app/interface/user.interface';
 })
 export class AuthService {
   signIn(user: User) {
-    localStorage.setItem('token', 'token');
+    localStorage.setItem('token', user.token);
   }
 
   logout() {}
