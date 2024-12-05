@@ -1,10 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import * as bcrypt from 'bcrypt';
-import { Model } from 'mongoose';
 import { User } from '@src/schemas/User.schema';
 import { UserDto } from '@src/users/user.dto';
+import * as bcrypt from 'bcrypt';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class AuthService {
@@ -38,17 +38,6 @@ export class AuthService {
       token,
       user,
     };
-  }
-
-  async validateToken(token: string): Promise<any> {
-    try {
-      const payload = await this.jwtService.verifyAsync(token, {
-        secret: process.env.SECRET_KEY,
-      });
-      return payload;
-    } catch (err) {
-      throw new UnauthorizedException('Invalid or expired token');
-    }
   }
 
   async signUp(userDto: UserDto): Promise<User> {

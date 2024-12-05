@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@src/auth/auth.guard';
+import { AuthGuard } from '@src/auth/guards/auth.guard';
 import { ConversationDto } from './conversation.dto';
 import { ConversationService } from './conversation.service';
 
