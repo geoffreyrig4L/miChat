@@ -13,26 +13,31 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(userDto: UserDto) {
+  async validateUser({ username, password }: UserDto): Promise<boolean> {
     const user = await this.userModel.findOne({
-      username: userDto.username,
+      username,
     });
 
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
 
-    const match = await bcrypt.compare(userDto.password, user.password);
+    const match = await bcrypt.compare(password, user?.password);
 
     if (!match) {
       throw new UnauthorizedException('User not found');
     }
 
-    const payload = { user: user._id };
-    const token = this.jwtService.sign(payload, {
-      expiresIn: '6h',
-      secret: process.env.SECRET_KEY,
-    });
+    return true;
+  }
+
+  async generateToken(username: string) {
+    const user = await this.userModel.findOne({ username });
+
+    const token = this.jwtService.sign(
+      { sub: user._id },
+      { expiresIn: '1d', secret: process.env.JWT_SECRET },
+    );
 
     return {
       token,
