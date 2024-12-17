@@ -7,15 +7,10 @@ import {
 } from 'src/schemas/Conversation.schema';
 import { ConversationController } from './conversation.controller';
 import { ConversationService } from './conversation.service';
-import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
     AuthModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
-    }),
     MongooseModule.forFeature([
       { name: Conversation.name, schema: ConversationSchema },
     ]),
