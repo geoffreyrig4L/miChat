@@ -29,7 +29,7 @@ export class ConvProviderComponent implements OnInit {
   ngOnInit(): void {
     this.conversationService.getConversations().subscribe((conversations) => {
       if (conversations.length === 0) {
-        this.conversationService.loadConversations('674881694373b0ebe2b44317');
+        this.conversationService.loadConversations();
       } else {
         this.listConv = conversations;
       }

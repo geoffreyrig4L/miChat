@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { ConversationDto } from './conversation.dto';
 import { ConversationService } from './conversation.service';
+import { PassportJwtGuard } from '@src/auth/guards/passport-jwt.guard';
 
 @Controller('conversation')
 export class ConversationController {
@@ -11,9 +12,10 @@ export class ConversationController {
     return this.conversationService.getAll();
   }
 
-  @Get(':id')
-  async getOwn(@Param('id') id: string) {
-    return this.conversationService.getOwn(id);
+  @Get()
+  @UseGuards(PassportJwtGuard)
+  async getOwn(@Req() request) {
+    return this.conversationService.getOwn(request.user);
   }
 
   @Post()

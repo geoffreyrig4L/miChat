@@ -1,37 +1,52 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import * as bcrypt from 'bcrypt';
-import { Model } from 'mongoose';
 import { User } from '@src/schemas/User.schema';
 import { UserDto } from '@src/users/user.dto';
+import * as bcrypt from 'bcrypt';
+import { Model, Types } from 'mongoose';
+import { find } from 'rxjs';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-    private readonly JWTService: JwtService,
+    private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(userDto: UserDto) {
-    const user = await this.userModel.findOne({
-      username: userDto.username,
-    });
+  async validateUser({ username, password }: UserDto): Promise<boolean> {
+    const user = await this.findUser(username, false);
 
-    if (!user) {
-      throw new UnauthorizedException('User not found');
-    }
+    await this.validatePassword(password, user);
 
-    const match = await bcrypt.compare(userDto.password, user.password);
+    return true;
+  }
+
+  private async findUser(identifier: string, byId: boolean = true) {
+    const user = await this.userModel.findOne(
+      byId ? { _id: identifier } : { username: identifier },
+    );
+
+    if (!user) throw new UnauthorizedException('User not found');
+    return user;
+  }
+
+  private async validatePassword(password: string, user) {
+    const match = await bcrypt.compare(password, user?.password);
 
     if (!match) {
-      throw new UnauthorizedException('User not found');
+      throw new UnauthorizedException('(Password) User not found');
     }
+  }
 
-    const payload = { user: user._id };
-    const token = this.JWTService.sign(payload, {
-      expiresIn: '6h',
-      secret: process.env.SECRET_KEY,
+  async generateToken(username: string) {
+    const user = await this.userModel.findOne({ username });
+
+    const payload = { sub: user._id, email: user.email };
+
+    const token = this.jwtService.sign(payload, {
+      expiresIn: '1d',
+      secret: process.env.JWT_SECRET,
     });
 
     return {
@@ -59,5 +74,12 @@ export class AuthService {
     });
 
     return newUser.save();
+  }
+
+  async delete(userId: string, password: string) {
+    const user = await this.findUser(userId);
+    await this.validatePassword(password, user);
+    await this.userModel.deleteOne({ _id: userId });
+    return 'User deleted';
   }
 }
