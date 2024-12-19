@@ -12,10 +12,6 @@ export class ConversationService {
   private http = inject(HttpClient);
   readonly url = environment.apiUrl;
 
-  getOwnConversations(id: string): Observable<Conversation[]> {
-    return this.http.get<Conversation[]>(this.url + '/conversation/' + id);
-  }
-
   loadConversations(): void {
     if (this.conversations$.value.length === 0) {
       const token = localStorage.getItem('token');

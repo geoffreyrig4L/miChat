@@ -3,27 +3,24 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Conversation } from 'src/schemas/Conversation.schema';
 import { ConversationDto } from './conversation.dto';
-// import { User } from '@src/schemas/User.schema';
 
 @Injectable()
 export class ConversationService {
   constructor(
     @InjectModel(Conversation.name)
     private conversationModel: Model<Conversation>,
-    // @InjectModel(User.name)
-    // private userModel: Model<User>,
   ) {}
 
   getAll(): Promise<Conversation[] | null> {
-    return this.conversationModel.find().populate(['messages', 'users']);
+    return this.conversationModel.find().populate(['users']);
   }
 
-  getOwn(id: string): Promise<Conversation[] | null> {
-    const objectId = new Types.ObjectId(id);
+  getOwn(userId: string): Promise<Conversation[] | null> {
+    const objectUserId = new Types.ObjectId(userId);
     return this.conversationModel.aggregate([
       {
         $match: {
-          users: objectId,
+          users: objectUserId,
         },
       },
       {
@@ -35,6 +32,14 @@ export class ConversationService {
         },
       },
       {
+        $lookup: {
+          from: 'messages',
+          localField: 'messages',
+          foreignField: '_id',
+          as: 'messages',
+        },
+      },
+      {
         $addFields: {
           interlocutor: {
             $arrayElemAt: [
@@ -42,7 +47,7 @@ export class ConversationService {
                 $filter: {
                   input: '$participants',
                   as: 'participant',
-                  cond: { $ne: ['$$participant._id', objectId] },
+                  cond: { $ne: ['$$participant._id', objectUserId] },
                 },
               },
               0,

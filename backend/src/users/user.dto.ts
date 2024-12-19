@@ -11,7 +11,7 @@ export class UserDto {
   @ApiProperty({
     type: String,
     required: true,
-    example: 'deadpool',
+    example: 'jojo',
   })
   @IsNotEmpty()
   readonly username: string;
@@ -19,6 +19,7 @@ export class UserDto {
   @ApiProperty({
     type: String,
     required: true,
+    example: 'a1',
   })
   @IsNotEmpty()
   readonly password: string;

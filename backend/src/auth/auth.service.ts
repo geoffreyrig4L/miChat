@@ -5,7 +5,6 @@ import { User } from '@src/schemas/User.schema';
 import { UserDto } from '@src/users/user.dto';
 import * as bcrypt from 'bcrypt';
 import { Model, Types } from 'mongoose';
-import { find } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +21,7 @@ export class AuthService {
     return true;
   }
 
-  private async findUser(identifier: string, byId: boolean = true) {
+  private async findUser(identifier: string | number, byId: boolean = true) {
     const user = await this.userModel.findOne(
       byId ? { _id: identifier } : { username: identifier },
     );
@@ -76,7 +75,7 @@ export class AuthService {
     return newUser.save();
   }
 
-  async delete(userId: string, password: string) {
+  async delete(userId: number, password: string) {
     const user = await this.findUser(userId);
     await this.validatePassword(password, user);
     await this.userModel.deleteOne({ _id: userId });

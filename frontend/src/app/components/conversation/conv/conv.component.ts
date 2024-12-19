@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { Message } from '@app/interface/message.interface';
 
 @Component({
   selector: 'app-conv',
@@ -19,4 +20,6 @@ export class ConvComponent {
     online: false,
     lastMsg: '',
   };
+
+  @Input() messages: Message[] = [];
 }
