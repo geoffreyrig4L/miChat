@@ -1,16 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, inject, Input } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MessageService } from '@app/services/message.service';
 
 @Component({
   selector: 'app-message-to-send',
-  imports: [MatIconModule, CommonModule],
+  imports: [MatIconModule, CommonModule, ReactiveFormsModule],
   templateUrl: './messageToSend.component.html',
   standalone: true,
 })
 export class MessageToSendComponent {
+  private messageService = inject(MessageService);
   messageToSend = new FormControl('');
+
+  @Input() idConv: string = '';
+  @Input() idInterlocutor: string = '';
 
   sendMessage(event: Event) {
     event.preventDefault();
@@ -18,7 +23,7 @@ export class MessageToSendComponent {
     if (this.messageToSend.value) {
       console.log(this.messageToSend.value);
 
-      // Send message
+      // this.messageService.sendMessage({});
     }
   }
 }

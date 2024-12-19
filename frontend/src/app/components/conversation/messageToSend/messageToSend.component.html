@@ -1,9 +1,9 @@
-<form (submit)="sendMessage($event)" class="flex gap-4 w-full">
+<form (submit)="sendMessage($event)" class="flex flex-row gap-4">
   <input
     type="text"
     [formControl]="messageToSend"
     placeholder="Type here"
-    class="input input-bordered w-full bg-[#333333] text-white"
+    class="input input-bordered flex-1 bg-[#333333] text-white"
   />
   <button type="submit" class="btn">
     <mat-icon

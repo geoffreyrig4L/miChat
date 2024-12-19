@@ -12,12 +12,13 @@
     <button mat-flat-button class="!rounded-full">Favories</button>
     <button mat-flat-button class="!rounded-full">Groups</button>
   </div>
+  @if(listConv !== null) {
   <ul>
     @for (conv of listConv; track conv) {
     <li
       class="my-4 cursor-pointer px-4 py-2 !m-0"
-      [ngClass]="conv.interlocutor._id == idConv ? 'bg-[#515151]' : ''"
-      (click)="nav(conv.interlocutor._id)"
+      [ngClass]="conv._id == idConv ?? 'bg-[#515151]'"
+      (click)="nav(conv._id)"
     >
       <div class="flex gap-4">
         <div class="avatar online">
@@ -42,4 +43,5 @@
     <li>You don't have conversations</li>
     }
   </ul>
+  }
 </div>

@@ -45,3 +45,7 @@ body * {
 router-outlet + * {
   flex: 1;
 }
+
+app-message-to-send {
+  width: 100%;
+}
