@@ -20,23 +20,15 @@
   </div>
   <div
     id="content"
-    class="bg-[#333333] h-full px-16 py-8 flex flex-col justify-end"
+    class="bg-red-900/50 h-full px-16 py-8 flex flex-col justify-end"
   >
+    @if(messages.length > 0) { @for (message of messages; track message) {
     <div class="chat chat-start">
       <div class="chat-bubble bg-[#515151] text-white text-lg">
-        You underestimate my power!
+        {{ message.content }}
       </div>
     </div>
-    <div class="chat chat-end">
-      <div class="chat-bubble bg-pink-600 text-white text-lg">
-        You underestimate my power!
-      </div>
-    </div>
-    <div class="chat chat-start">
-      <div class="chat-bubble bg-[#515151] text-white text-lg">
-        {{ user.lastMsg }}
-      </div>
-    </div>
+    } }
   </div>
   <div id="foot" class="bg-[#515151] p-2 px-4 flex gap-4 items-center">
     <mat-icon

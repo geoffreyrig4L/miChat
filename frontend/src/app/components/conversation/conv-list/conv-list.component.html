@@ -1,5 +1,10 @@
 <div class="bg-white/20 h-full border-r-4 border-right-gradient">
-  <h1 class="!font-bold px-4 pt-8">Conversations</h1>
+  <div class="flex flex-row justify-between items-center p-8">
+    <h1 class="!font-bold !m-0">Conversations</h1>
+    <button (click)="signOut()" class="underline text-lg !text-pink-600">
+      Sign out
+    </button>
+  </div>
   <app-search-bar />
   <div class="flex flex-wrap gap-4 mb-8 mt-4 px-4">
     <button mat-flat-button class="!rounded-full !bg-pink-600">All</button>

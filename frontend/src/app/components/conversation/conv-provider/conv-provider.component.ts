@@ -4,6 +4,7 @@ import { Conversation } from '@app/interface/conversation.interface';
 import { ConversationService } from '@app/services/conversation.service';
 import { ConvListComponent } from '../conv-list/conv-list.component';
 import { ConvComponent } from '../conv/conv.component';
+import { Message } from '@app/interface/message.interface';
 
 @Component({
   selector: 'app-conv-provider',
@@ -26,6 +27,8 @@ export class ConvProviderComponent implements OnInit {
     lastMsg: '',
   };
 
+  messages: Message[] = [];
+
   ngOnInit(): void {
     this.conversationService.getConversations().subscribe((conversations) => {
       if (conversations.length === 0) {
@@ -44,6 +47,7 @@ export class ConvProviderComponent implements OnInit {
           if (convFind) {
             this.user.name = convFind?.interlocutor.username;
             this.user.lastMsg = 'test';
+            this.messages = convFind?.messages;
           } else {
             this.router.navigateByUrl('/');
           }
