@@ -1,0 +1,17 @@
+<form (submit)="sendMessage($event)" class="flex gap-4 w-full">
+  <input
+    type="text"
+    [formControl]="messageToSend"
+    placeholder="Type here"
+    class="input input-bordered w-full bg-[#333333] text-white"
+  />
+  <button type="submit" class="btn">
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Sender icon"
+      class="bg-black"
+      fontIcon="send"
+      class="scale-125"
+    />
+  </button>
+</form>
