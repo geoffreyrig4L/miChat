@@ -22,8 +22,4 @@ export class ConvComponent {
   };
 
   @Input() messages: Message[] = [];
-
-  ngOnInit() {
-    console.log(this.messages);
-  }
 }
