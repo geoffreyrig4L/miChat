@@ -22,7 +22,7 @@
   </div>
   <div
     id="content"
-    class="bg-[#333333] h-full px-16 py-8 flex flex-col justify-end"
+    class="bg-[#333333] h-full px-16 py-8 flex flex-col justify-start overflow-y-auto"
   >
     @if(conv.messages.length > 0) { @for (message of conv.messages; track
     message) {
@@ -55,6 +55,7 @@
     <app-message-to-send
       [idConv]="conv._id"
       [idInterlocutor]="conv.interlocutor._id"
+      [reloadMessages]="reloadMessages"
     />
   </div>
 </div>

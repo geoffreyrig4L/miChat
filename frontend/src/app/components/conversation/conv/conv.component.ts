@@ -25,4 +25,16 @@ export class ConvComponent {
       online: false,
     },
   };
+
+  reloadMessages(item: Message) {
+    this.conv.messages.push(item);
+  }
+
+  ngOnInit() {
+    this.conv.messages = this.conv.messages.sort((a: Message, b: Message) => {
+      return (
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      );
+    });
+  }
 }
