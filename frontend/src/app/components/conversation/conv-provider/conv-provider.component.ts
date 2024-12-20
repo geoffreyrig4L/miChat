@@ -4,7 +4,6 @@ import { Conversation } from '@app/interface/conversation.interface';
 import { ConversationService } from '@app/services/conversation.service';
 import { ConvListComponent } from '../conv-list/conv-list.component';
 import { ConvComponent } from '../conv/conv.component';
-import { Message } from '@app/interface/message.interface';
 
 @Component({
   selector: 'app-conv-provider',
@@ -16,18 +15,9 @@ export class ConvProviderComponent implements OnInit {
   private router = inject(Router);
   private conversationService = inject(ConversationService);
 
-  idConv: null | string = null;
-
   listConv: Conversation[] = [];
 
-  user: { name: string; imgUrl: string; online: boolean; lastMsg: string } = {
-    name: '',
-    imgUrl: '',
-    online: false,
-    lastMsg: '',
-  };
-
-  messages: Message[] = [];
+  conv: Conversation | null = null;
 
   ngOnInit(): void {
     this.conversationService.getConversations().subscribe((conversations) => {
@@ -39,16 +29,10 @@ export class ConvProviderComponent implements OnInit {
       this.listConv = conversations;
       this.route.params.subscribe((params) => {
         if (params['id']) {
-          this.idConv = params['id'];
-          let convFind = conversations.find(
-            ({ interlocutor }) => interlocutor._id == params['id']
-          );
+          this.conv =
+            this.listConv.find((conv) => conv._id === params['id']) ?? null;
 
-          if (convFind) {
-            this.user.name = convFind?.interlocutor.username;
-            this.user.lastMsg = 'test';
-            this.messages = convFind?.messages;
-          } else {
+          if (!this.conv) {
             this.router.navigateByUrl('/');
           }
         }

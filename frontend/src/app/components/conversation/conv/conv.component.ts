@@ -1,25 +1,40 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Message } from '@app/interface/message.interface';
+import { MessageToSendComponent } from '../messageToSend/messageToSend.component';
+import { Participant } from '@app/interface/participant.interface';
+import { Conversation } from '@app/interface/conversation.interface';
 
 @Component({
   selector: 'app-conv',
-  imports: [MatIconModule],
+  imports: [MatIconModule, CommonModule, MessageToSendComponent],
   templateUrl: './conv.component.html',
   standalone: true,
 })
 export class ConvComponent {
-  @Input() user: {
-    name: string;
-    imgUrl: string;
-    online: boolean;
-    lastMsg: string;
-  } = {
-    name: '',
-    imgUrl: '',
-    online: false,
-    lastMsg: '',
+  @Input() conv: Conversation = {
+    _id: '',
+    created_at: new Date(),
+    updated_at: new Date(),
+    messages: [],
+    interlocutor: {
+      _id: '',
+      username: '',
+      imgUrl: '',
+      online: false,
+    },
   };
 
-  @Input() messages: Message[] = [];
+  reloadMessages(item: Message) {
+    this.conv.messages.push(item);
+  }
+
+  ngOnInit() {
+    this.conv.messages = this.conv.messages.sort((a: Message, b: Message) => {
+      return (
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      );
+    });
+  }
 }
