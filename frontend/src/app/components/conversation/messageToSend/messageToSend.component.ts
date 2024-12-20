@@ -23,7 +23,16 @@ export class MessageToSendComponent {
     if (this.messageToSend.value) {
       console.log(this.messageToSend.value);
 
-      // this.messageService.sendMessage({});
+      this.messageService
+        .sendMessage(this.idInterlocutor, this.messageToSend.value, this.idConv)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
     }
   }
 }

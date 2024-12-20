@@ -23,7 +23,6 @@ export class ConvComponent {
       username: '',
       imgUrl: '',
       online: false,
-      lastMsg: '',
     },
   };
 }

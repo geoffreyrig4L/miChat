@@ -1,4 +1,4 @@
-<div class="bg-white/20 h-full border-r-4 border-right-gradient">
+<div class="bg-white/20 h-full border-r-4 border-right-gradient p-8">
   <div class="flex flex-row justify-between items-center p-8">
     <h1 class="!font-bold !m-0">Conversations</h1>
     <button (click)="signOut()" class="underline text-lg !text-pink-600">
@@ -17,7 +17,7 @@
     @for (conv of listConv; track conv) {
     <li
       class="my-4 cursor-pointer px-4 py-2 !m-0"
-      [ngClass]="conv._id == idConv ?? 'bg-[#515151]'"
+      [ngClass]="conv._id === idConv ? 'bg-[#515151]' : ''"
       (click)="nav(conv._id)"
     >
       <div class="flex gap-4">
@@ -40,7 +40,7 @@
     </li>
     <mat-divider class="!mt-0" />
     } @empty {
-    <li>You don't have conversations</li>
+    <li class="px-8">You don't have conversations</li>
     }
   </ul>
   }

@@ -3,5 +3,4 @@ export interface Participant {
   username: string;
   imgUrl: string;
   online: boolean;
-  lastMsg: string;
 }

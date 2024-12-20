@@ -21,8 +21,11 @@ export class MessageService {
     return this.messageModel.find();
   }
 
-  async create({ sender, receiver, conversation, ...messageDto }: MessageDto) {
-    const findSender = await this.userModel.findById(sender);
+  async create(
+    idSender,
+    { receiver, conversation, ...messageDto }: MessageDto,
+  ) {
+    const findSender = await this.userModel.findById(idSender);
     if (!findSender) throw new HttpException('Sender not found', 404);
 
     const findReceiver = await this.userModel.findById(receiver);
@@ -35,7 +38,7 @@ export class MessageService {
 
     const newMessage = new this.messageModel({
       conversation,
-      sender,
+      sender: idSender,
       receiver,
       ...messageDto,
     });
