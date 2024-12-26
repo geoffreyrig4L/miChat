@@ -4,10 +4,11 @@ import { Conversation } from '@app/interface/conversation.interface';
 import { ConversationService } from '@app/services/conversation.service';
 import { ConvListComponent } from '../conv-list/conv-list.component';
 import { ConvComponent } from '../conv/conv.component';
+import { CreateConv } from '../create-conv/createConv.component';
 
 @Component({
   selector: 'app-conv-provider',
-  imports: [ConvListComponent, ConvComponent],
+  imports: [ConvListComponent, ConvComponent, CreateConv],
   templateUrl: './conv-provider.component.html',
 })
 export class ConvProviderComponent implements OnInit {

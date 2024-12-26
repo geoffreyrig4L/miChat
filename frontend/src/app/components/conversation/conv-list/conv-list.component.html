@@ -1,47 +1,58 @@
-<div class="bg-white/20 h-full border-r-4 border-right-gradient p-8">
-  <div class="flex flex-row justify-between items-center p-8">
-    <h1 class="!font-bold !m-0">Conversations</h1>
-    <button (click)="signOut()" class="underline text-lg !text-pink-600">
-      Sign out
-    </button>
-  </div>
-  <app-search-bar />
-  <div class="flex flex-wrap gap-4 mb-8 mt-4 px-4">
-    <button mat-flat-button class="!rounded-full !bg-pink-600">All</button>
-    <button mat-flat-button class="!rounded-full">Not read</button>
-    <button mat-flat-button class="!rounded-full">Favories</button>
-    <button mat-flat-button class="!rounded-full">Groups</button>
-  </div>
-  @if(listConv !== null) {
-  <ul>
-    @for (conv of listConv; track conv) {
-    <li
-      class="my-4 cursor-pointer px-4 py-2 !m-0"
-      [ngClass]="conv._id === idConv ? 'bg-[#515151]' : ''"
-      (click)="nav(conv._id)"
-    >
-      <div class="flex gap-4">
-        <div class="avatar online">
-          <div class="w-16 rounded-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            />
-          </div>
-        </div>
-        <div class="flex flex-col justify-between">
-          <h4 class="!text-lg !font-bold !m-0">
-            {{ conv.interlocutor.username }}
-          </h4>
-          <h4>
-            {{ conv.messages[conv.messages.length - 1].content }}
-          </h4>
+<div class="bg-white/20 h-full border-r-4 border-right-gradient">
+  <div class="flex flex-col justify-between h-full p-16">
+    <div class="flex flex-col space-y-8">
+      <div class="flex flex-row justify-between items-center">
+        <h1 class="!font-bold !m-0">Conversations</h1>
+        <button (click)="signOut()" class="underline text-lg !text-pink-600">
+          Sign out
+        </button>
+      </div>
+      <div class="flex flex-col space-y-4">
+        <app-search-bar />
+        <div class="flex flex-wrap gap-4">
+          <button mat-flat-button class="!rounded-full !bg-pink-600">
+            All
+          </button>
+          <button mat-flat-button class="!rounded-full">Not read</button>
+          <button mat-flat-button class="!rounded-full">Favories</button>
+          <button mat-flat-button class="!rounded-full">Groups</button>
         </div>
       </div>
-    </li>
-    <mat-divider class="!mt-0" />
-    } @empty {
-    <li class="px-8">You don't have conversations</li>
-    }
-  </ul>
-  }
+      @if(listConv !== null) {
+      <ul>
+        @for (conv of listConv; track conv) {
+        <li
+          class="my-4 cursor-pointer px-4 py-2 !m-0"
+          [ngClass]="conv._id === idConv ? 'bg-[#515151]' : ''"
+          (click)="nav(conv._id)"
+        >
+          <div class="flex gap-4">
+            <div class="avatar online">
+              <div class="w-16 rounded-full">
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                />
+              </div>
+            </div>
+            <div class="flex flex-col justify-between">
+              <h4 class="!text-lg !font-bold !m-0">
+                {{ conv.interlocutor.username }}
+              </h4>
+              <h4>
+                {{ conv.messages[conv.messages.length - 1].content }}
+              </h4>
+            </div>
+          </div>
+        </li>
+        <mat-divider class="!mt-0" />
+        } @empty {
+        <li class="px-8">You don't have conversations</li>
+        }
+      </ul>
+      }
+    </div>
+    <button mat-flat-button (click)="redirectToCreateConvPage()" class="w-full">
+      Create a conversation
+    </button>
+  </div>
 </div>
