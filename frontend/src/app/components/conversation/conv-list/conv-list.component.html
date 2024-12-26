@@ -1,4 +1,4 @@
-<div class="bg-white/20 h-full border-r-4 border-right-gradient">
+<div class="bg-white/20 h-full border-r-4 border-right-gradient p-8">
   <div class="flex flex-row justify-between items-center p-8">
     <h1 class="!font-bold !m-0">Conversations</h1>
     <button (click)="signOut()" class="underline text-lg !text-pink-600">
@@ -12,12 +12,13 @@
     <button mat-flat-button class="!rounded-full">Favories</button>
     <button mat-flat-button class="!rounded-full">Groups</button>
   </div>
+  @if(listConv !== null) {
   <ul>
-    @for (item of listConv; track item) {
+    @for (conv of listConv; track conv) {
     <li
       class="my-4 cursor-pointer px-4 py-2 !m-0"
-      [ngClass]="item.interlocutor._id == idConv ? 'bg-[#515151]' : ''"
-      (click)="nav(item.interlocutor._id)"
+      [ngClass]="conv._id === idConv ? 'bg-[#515151]' : ''"
+      (click)="nav(conv._id)"
     >
       <div class="flex gap-4">
         <div class="avatar online">
@@ -29,18 +30,18 @@
         </div>
         <div class="flex flex-col justify-between">
           <h4 class="!text-lg !font-bold !m-0">
-            {{ item.interlocutor.username }}
+            {{ conv.interlocutor.username }}
           </h4>
-          <h5 class="!text-base !font-semibold !m-0 !italic">
-            <!-- {{ item.lastMsg }} -->
-            "test"
-          </h5>
+          <h4>
+            {{ conv.messages[conv.messages.length - 1].content }}
+          </h4>
         </div>
       </div>
     </li>
     <mat-divider class="!mt-0" />
     } @empty {
-    <li>You don't have conversations</li>
+    <li class="px-8">You don't have conversations</li>
     }
   </ul>
+  }
 </div>

@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full">
+<div class="flex flex-col h-[95%]">
   <div id="head" class="bg-[#515151] p-2">
     <div class="flex gap-4">
       <div class="avatar">
@@ -9,8 +9,10 @@
         </div>
       </div>
       <div class="flex flex-col justify-between">
-        <h4 class="!text-lg !font-bold !m-0">{{ user.name }}</h4>
-        @if(user.online){
+        <h4 class="!text-lg !font-bold !m-0">
+          {{ conv.interlocutor.username }}
+        </h4>
+        @if(conv.interlocutor.online){
         <h5 class="!text-base !font-light !m-0">Online</h5>
         }@else {
         <h5 class="!text-base !font-light !m-0">Offline</h5>
@@ -20,17 +22,24 @@
   </div>
   <div
     id="content"
-    class="bg-red-900/50 h-full px-16 py-8 flex flex-col justify-end"
+    class="bg-[#333333] h-full px-16 py-8 flex flex-col justify-start overflow-y-auto"
   >
-    @if(messages.length > 0) { @for (message of messages; track message) {
-    <div class="chat chat-start">
+    @if(conv.messages.length > 0) { @for (message of conv.messages; track
+    message) {
+    <div class="flex flex-col space-y-1 chat chat-start">
       <div class="chat-bubble bg-[#515151] text-white text-lg">
         {{ message.content }}
+      </div>
+      <div class="text-white/50 text-sm">
+        {{ message.created_at | date : "short" }}
       </div>
     </div>
     } }
   </div>
-  <div id="foot" class="bg-[#515151] p-2 px-4 flex gap-4 items-center">
+  <div
+    id="foot"
+    class="bg-[#515151] w-[70%] m-auto p-2 flex gap-4 items-center"
+  >
     <mat-icon
       aria-hidden="false"
       aria-label="Emoji icon"
@@ -43,16 +52,10 @@
       fontIcon="add"
       class="scale-125"
     />
-    <input
-      type="text"
-      placeholder="Type here"
-      class="input input-bordered w-full bg-[#333333]"
-    />
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Mic icon"
-      fontIcon="mic"
-      class="scale-125"
+    <app-message-to-send
+      [idConv]="conv._id"
+      [idInterlocutor]="conv.interlocutor._id"
+      [reloadMessages]="reloadMessages"
     />
   </div>
 </div>
