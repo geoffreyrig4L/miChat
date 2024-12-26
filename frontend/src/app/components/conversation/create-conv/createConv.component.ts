@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { User } from '@app/interface/user.interface';
+import { UserService } from '@app/services/user.service';
 
 @Component({
   selector: 'create-conv',
@@ -21,5 +22,17 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
 })
 export class CreateConv {
-  private router = inject(Router);
+  private userService = inject(UserService);
+
+  user: User | null = null;
+
+  ngOnInit(): void {
+    this.userService.getUser().subscribe((user) => {
+      if (!user) {
+        this.userService.loadMyUser();
+      } else {
+        this.user = user;
+      }
+    });
+  }
 }

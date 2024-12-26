@@ -15,6 +15,9 @@ export class User {
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }] })
   messages?: Message[];
+
+  @Prop({ unique: true, required: true })
+  friendCode: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

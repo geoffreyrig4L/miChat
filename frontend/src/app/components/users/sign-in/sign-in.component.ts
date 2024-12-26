@@ -5,9 +5,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/guard/auth.service';
+import { AuthService } from '@app/services/auth.service';
 import { User } from '@app/interface/user.interface';
 import { UserService } from '@app/services/user.service';
+import { SignInResponse } from '@app/interface/signInResponse.interface';
 
 @Component({
   selector: 'sign-in',
@@ -36,8 +37,8 @@ export class SignInComponent {
       this.userService
         .signInUser(this.username.value, this.password.value)
         .subscribe({
-          next: (user: User) => {
-            this.authService.signIn(user);
+          next: (response: SignInResponse) => {
+            this.authService.signIn(response.token);
             this.route.navigateByUrl('/');
           },
           error: (err) =>

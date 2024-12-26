@@ -6,15 +6,18 @@
         code below to create a conversation with someone
       </p>
       <div class="flex flex-row space-x-8 items-center">
-        <div>...</div>
-        <button mat-raised-button matTooltip="Copy your friend code">
-          <mat-icon class="!m-0">content_copy</mat-icon>
+        <button
+          matTooltip="Copy your friend code"
+          class="flex flex-row items-center space-x-4 bg-pink-600 text-xl text-white p-4 rounded-full font-bold"
+        >
+          <div>{{ user?.friendCode }}</div>
+          <mat-icon>content_copy</mat-icon>
         </button>
       </div>
     </div>
     <div>
       <div class="flex flex-row space-x-8 items-center">
-        <p class="text-xl text-pink-500">To join a conversation,</p>
+        <b class="text-xl text-pink-500">To join a conversation,</b>
         <form class="example-form">
           <mat-form-field class="example-full-width w-[400px]">
             <mat-label>Input a friend code</mat-label>
