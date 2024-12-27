@@ -27,18 +27,35 @@
     <div>
       <div class="flex flex-col space-y-8">
         <b class="text-xl text-pink-500 pt-4">To join a conversation,</b>
-        <form class="flex flex-col items-center" (submit)="submit($event)">
+        <form
+          class="flex flex-col items-start w-[400px] m-auto"
+          [formGroup]="createConvForm"
+          (ngSubmit)="onSubmit($event)"
+        >
           <mat-form-field class="w-[400px]">
             <mat-label class="flex-1">Input a friend code</mat-label>
             <input
               matInput
-              [formControl]="friendCode"
+              formControlName="friendCode"
               type="text"
               id="friendCode"
               name="friendCode"
+              maxlength="6"
               required
             />
           </mat-form-field>
+          @if(createConvForm.controls.friendCode.invalid &&
+          (createConvForm.controls.friendCode.touched ||
+          createConvForm.controls.friendCode.dirty)) {
+          @if(createConvForm.controls.friendCode.errors?.["minlength"]) {
+          <small class="text-red-500 mb-2"
+            >*Friend code must be 6 characters</small
+          >
+          } @if(createConvForm.controls.friendCode.errors?.["numeric"]) {
+          <small class="text-red-500 mb-2">
+            *Friend code must contain only numbers
+          </small>
+          } }
           <button mat-flat-button class="w-[400px]" type="submit">
             Create
           </button>

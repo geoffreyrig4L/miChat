@@ -38,12 +38,15 @@
               <h4 class="!text-lg !font-bold !m-0">
                 {{ conv.interlocutor.username }}
               </h4>
-              <h4 class="truncate">
-                {{
-                  conv.messages[conv.messages.length - 1]?.content ??
-                    "Envoyez le premier message"
-                }}
+              @if(conv.messages.length > 0) {
+              <h4 class="truncate !text-white/70">
+                {{ conv.messages[conv.messages.length - 1].content }}
               </h4>
+              } @else {
+              <h4 class="!italic !text-white/70 truncate">
+                Envoyez le premier message
+              </h4>
+              }
             </div>
           </div>
         </li>
@@ -54,7 +57,11 @@
       </ul>
       }
     </div>
-    <button mat-flat-button (click)="redirectToCreateConvPage()" class="w-full">
+    <button
+      mat-flat-button
+      (click)="redirectToCreateConvPage()"
+      class="w-full !font-bold"
+    >
       Create a conversation
     </button>
   </div>
