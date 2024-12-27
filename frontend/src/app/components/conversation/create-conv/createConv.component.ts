@@ -96,6 +96,8 @@ export class CreateConv {
             this.router.navigate(['/', response._id]);
           },
           error: (err) => {
+            console.log('log');
+
             this.formSubmissionErrorMessage.set(err.error.message);
           },
         });

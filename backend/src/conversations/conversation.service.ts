@@ -97,4 +97,18 @@ export class ConversationService {
     const savedConversation = await conversation.save();
     return savedConversation;
   }
+
+  async delete(_id: string, user: User): Promise<String> {
+    const conversation = await this.conversationModel.findOne({
+      _id: new Types.ObjectId(_id),
+    });
+    if (!conversation) throw new NotFoundException('Conversation not found');
+
+    if (!conversation.users.includes(user))
+      throw new NotFoundException(
+        'You are not allowed to delete this conversation',
+      );
+    await this.conversationModel.deleteOne({ _id: new Types.ObjectId(_id) });
+    return 'Conversation deleted';
+  }
 }

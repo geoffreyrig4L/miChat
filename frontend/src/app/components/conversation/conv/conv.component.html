@@ -20,7 +20,9 @@
           }
         </div>
       </div>
-      <button><mat-icon>delete_forever</mat-icon></button>
+      <button onclick="modal_delete_conv.showModal()">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
     </div>
   </div>
   <div
@@ -61,3 +63,28 @@
     />
   </div>
 </div>
+<dialog id="modal_delete_conv" class="modal">
+  <div class="modal-box bg-[#333333]">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+
+    <h3>Are you sure to delete this conversation ?</h3>
+    <button
+      mat-flat-button
+      class="!bg-red-500 hover:scale-[105%] hover:transition-all hover:duration-[500ms]"
+      (click)="deleteConversation()"
+    >
+      Delete
+    </button>
+    <div
+      *ngIf="formSubmissionErrorMessage() !== ''"
+      class="mt-6 border-l-4 border-red-500 bg-red-500/20 rounded-r-lg text-red-400 p-2 pl-6"
+    >
+      <span class="font-bold text-red-400">ERROR : </span
+      >{{ formSubmissionErrorMessage() }}
+    </div>
+  </div>
+</dialog>
