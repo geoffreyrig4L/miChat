@@ -1,0 +1,76 @@
+<div class="flex flex-col justify-center items-start h-full w-[50%] m-auto">
+  <div class="flex flex-col space-y-12">
+    <div class="flex flex-col space-y-8">
+      <p class="text-xl">
+        <b class="text-pink-500">To create a conversation,</b> share your friend
+        code below to create a conversation with someone
+      </p>
+      <div class="flex flex-row space-x-8 items-center">
+        <button
+          matTooltip="Copy your friend code"
+          class="flex flex-row items-center space-x-4 text-xl text-white ml-10 p-4 rounded-full font-bold"
+          [cdkCopyToClipboard]="user?.friendCode ?? ''"
+          (cdkCopyToClipboardCopied)="copied.set(true)"
+          [class.bg-pink-600]="!copied()"
+          [class.bg-green-600]="copied()"
+        >
+          <div>{{ user?.friendCode }}</div>
+          @if(copied()) {
+          <mat-icon>check</mat-icon>
+          } @else {
+          <mat-icon>content_copy</mat-icon>
+          }
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+      <div class="flex flex-col space-y-8">
+        <b class="text-xl text-pink-500 pt-4">To join a conversation,</b>
+        <form
+          class="flex flex-col items-start w-[400px] m-auto"
+          [formGroup]="createConvForm"
+          (ngSubmit)="onSubmit($event)"
+        >
+          <mat-form-field class="w-[400px]">
+            <mat-label class="flex-1">Input a friend code</mat-label>
+            <input
+              matInput
+              formControlName="friendCode"
+              type="text"
+              id="friendCode"
+              name="friendCode"
+              maxlength="6"
+              required
+            />
+          </mat-form-field>
+          @if(createConvForm.controls.friendCode.invalid &&
+          (createConvForm.controls.friendCode.touched ||
+          createConvForm.controls.friendCode.dirty)) {
+          <small
+            *ngIf="createConvForm.controls.friendCode.errors?.['minlength']"
+            class="text-red-500 mb-2"
+            >*Friend code must be 6 characters</small
+          >
+          <small
+            *ngIf="createConvForm.controls.friendCode.errors?.['numeric']"
+            class="text-red-500 mb-2"
+          >
+            *Friend code must contain only numbers
+          </small>
+          }
+          <button mat-flat-button class="w-[400px]" type="submit">
+            Create
+          </button>
+        </form>
+        <div
+          *ngIf="formSubmissionErrorMessage() !== ''"
+          class="mt-2 border-l-4 border-red-500 bg-red-500/20 rounded-r-lg text-red-400 p-2 pl-6"
+        >
+          <span class="font-bold text-red-400">ERROR : </span
+          >{{ formSubmissionErrorMessage() }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

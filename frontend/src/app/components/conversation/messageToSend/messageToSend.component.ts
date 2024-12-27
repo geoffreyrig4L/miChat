@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
 import { MessageService } from '@app/services/message.service';
 
 @Component({
@@ -13,12 +12,10 @@ import { MessageService } from '@app/services/message.service';
 })
 export class MessageToSendComponent {
   private messageService = inject(MessageService);
-  private router = inject(Router);
   messageToSend = new FormControl('');
 
   @Input() idConv: string = '';
   @Input() idInterlocutor: string = '';
-  @Input() reloadMessages!: (item: Message) => void;
 
   sendMessage(event: Event) {
     event.preventDefault();

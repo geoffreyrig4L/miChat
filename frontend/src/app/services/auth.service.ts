@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { User } from '@app/interface/user.interface';
+import { SignInResponse } from '@app/interface/signInResponse.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  signIn(user: User) {
-    localStorage.setItem('token', user.token);
+  signIn(token: string) {
+    localStorage.setItem('token', token);
   }
-
-  logout() {}
 
   checkAuth(): boolean {
     return localStorage.getItem('token') !== null;

@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '@src/schemas/User.schema';
 import { UserDto } from '@src/users/user.dto';
 import * as bcrypt from 'bcrypt';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class AuthService {
@@ -66,10 +66,13 @@ export class AuthService {
 
     const hash = await bcrypt.hash(userDto.password, 10);
 
+    const friendCode = createFriendCode();
+
     const newUser = new this.userModel({
       username: userDto.username,
       password: hash,
       email: userDto.email,
+      friendCode,
     });
 
     return newUser.save();
@@ -81,4 +84,11 @@ export class AuthService {
     await this.userModel.deleteOne({ _id: userId });
     return 'User deleted';
   }
+}
+function createFriendCode() {
+  let friendCode = '';
+  for (let i = 0; i < 6; i++) {
+    friendCode += Math.floor(Math.random() * 10).toString();
+  }
+  return friendCode;
 }

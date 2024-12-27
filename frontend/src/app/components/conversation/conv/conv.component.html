@@ -1,5 +1,5 @@
 <div class="flex flex-col h-[95%]">
-  <div id="head" class="bg-[#515151] p-2">
+  <div id="head" class="bg-[#515151] py-4 px-16">
     <div class="flex gap-4">
       <div class="avatar">
         <div class="w-16 rounded-full">
@@ -55,7 +55,6 @@
     <app-message-to-send
       [idConv]="conv._id"
       [idInterlocutor]="conv.interlocutor._id"
-      [reloadMessages]="reloadMessages"
     />
   </div>
 </div>

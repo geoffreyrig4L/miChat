@@ -10,4 +10,8 @@ export class UserService {
   getAll(): Promise<User[] | null> {
     return this.userModel.find().populate(['messages']);
   }
+
+  getMyUser(userId: string): Promise<User | null> {
+    return this.userModel.findOne({ _id: userId });
+  }
 }

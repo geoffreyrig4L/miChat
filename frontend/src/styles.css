@@ -46,6 +46,10 @@ router-outlet + * {
   flex: 1;
 }
 
+small {
+  font-size: 0.8rem;
+}
+
 app-message-to-send {
   width: 100%;
 }

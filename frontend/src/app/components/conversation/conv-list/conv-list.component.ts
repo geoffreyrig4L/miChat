@@ -23,6 +23,10 @@ export class ConvListComponent {
     this.router.navigate(['/' + id]);
   }
 
+  redirectToCreateConvPage() {
+    this.router.navigateByUrl('/');
+  }
+
   signOut() {
     localStorage.removeItem('token');
     this.router.navigateByUrl('/sign-in');

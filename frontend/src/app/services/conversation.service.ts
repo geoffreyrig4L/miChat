@@ -14,21 +14,34 @@ export class ConversationService {
 
   loadConversations(): void {
     if (this.conversations$.value.length === 0) {
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-        console.error('Token is missing');
-        return;
-      }
-
-      const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`,
-      });
+      const headers = this.getHeaders();
 
       this.http
         .get<Conversation[]>(`${this.url}/conversation`, { headers })
         .subscribe((response) => this.conversations$.next(response));
     }
+  }
+
+  createConversation(
+    friendCode: string,
+    userId: string
+  ): Observable<Conversation> {
+    const headers = this.getHeaders();
+    return this.http.post<Conversation>(
+      `${this.url}/conversation`,
+      { friendCode, userId },
+      { headers }
+    );
+  }
+
+  getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+
+    if (!token) console.error('No token found');
+
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
   }
 
   getConversations(): Observable<Conversation[]> {
