@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { User } from '@app/interface/user.interface';
 import { UserService } from '@app/services/user.service';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'create-conv',
@@ -17,12 +18,14 @@ import { UserService } from '@app/services/user.service';
     MatFormFieldModule,
     MatIconModule,
     FormsModule,
+    ClipboardModule,
   ],
   templateUrl: './createConv.component.html',
   standalone: true,
 })
 export class CreateConv {
   private userService = inject(UserService);
+  protected copied = signal(false);
 
   user: User | null = null;
 
