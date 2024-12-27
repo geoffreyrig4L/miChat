@@ -1,6 +1,6 @@
 <div class="flex flex-col justify-center items-start h-full w-[50%] m-auto">
   <div class="flex flex-col space-y-12">
-    <div>
+    <div class="flex flex-col space-y-8">
       <p class="text-xl">
         <b class="text-pink-500">To create a conversation,</b> share your friend
         code below to create a conversation with someone
@@ -8,7 +8,7 @@
       <div class="flex flex-row space-x-8 items-center">
         <button
           matTooltip="Copy your friend code"
-          class="flex flex-row items-center space-x-4 text-xl text-white p-4 rounded-full font-bold"
+          class="flex flex-row items-center space-x-4 text-xl text-white ml-10 p-4 rounded-full font-bold"
           [cdkCopyToClipboard]="user?.friendCode ?? ''"
           (cdkCopyToClipboardCopied)="copied.set(true)"
           [class.bg-pink-600]="!copied()"
@@ -23,14 +23,25 @@
         </button>
       </div>
     </div>
+    <mat-divider></mat-divider>
     <div>
-      <div class="flex flex-row space-x-8 items-center">
-        <b class="text-xl text-pink-500">To join a conversation,</b>
-        <form class="example-form">
-          <mat-form-field class="example-full-width w-[400px]">
-            <mat-label>Input a friend code</mat-label>
-            <input matInput />
+      <div class="flex flex-col space-y-8">
+        <b class="text-xl text-pink-500 pt-4">To join a conversation,</b>
+        <form class="flex flex-col items-center" (submit)="submit($event)">
+          <mat-form-field class="w-[400px]">
+            <mat-label class="flex-1">Input a friend code</mat-label>
+            <input
+              matInput
+              [formControl]="friendCode"
+              type="text"
+              id="friendCode"
+              name="friendCode"
+              required
+            />
           </mat-form-field>
+          <button mat-flat-button class="w-[400px]" type="submit">
+            Create
+          </button>
         </form>
       </div>
     </div>

@@ -23,7 +23,10 @@ export class ConversationController {
   }
 
   @Post()
-  async create(@Body() conversationDto: ConversationDto) {
-    return this.conversationService.create(conversationDto);
+  @UseGuards(PassportJwtGuard)
+  @ApiOperation({ summary: 'Create a conversation with a friend' })
+  @ApiBearerAuth()
+  async create(@Body() conversationDto: ConversationDto, @Req() request) {
+    return this.conversationService.create(conversationDto, request.user);
   }
 }
