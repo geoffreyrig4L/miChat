@@ -1,4 +1,5 @@
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { NgIf } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import {
   AbstractControl,
@@ -39,6 +40,7 @@ export function numericValidator(): ValidatorFn {
     ReactiveFormsModule,
     ClipboardModule,
     MatDividerModule,
+    NgIf,
   ],
   templateUrl: './createConv.component.html',
   standalone: true,
@@ -48,6 +50,7 @@ export class CreateConv {
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
   private conversationService = inject(ConversationService);
+  formSubmissionErrorMessage = signal<string>('');
 
   protected copied = signal(false);
 
@@ -92,8 +95,8 @@ export class CreateConv {
 
             this.router.navigate(['/', response._id]);
           },
-          error: (err: Error) => {
-            console.error(err.message);
+          error: (err) => {
+            this.formSubmissionErrorMessage.set(err.error.message);
           },
         });
     }

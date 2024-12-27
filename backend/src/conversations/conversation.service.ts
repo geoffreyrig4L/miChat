@@ -73,21 +73,26 @@ export class ConversationService {
 
   async create(
     conversationDto: ConversationDto,
-    userId: string,
+    user: User,
   ): Promise<Conversation> {
+    if (user.friendCode === conversationDto.friendCode)
+      throw new ConflictException(
+        "You can't create a conversation with yourself",
+      );
+
     const interlocutor = await this.userModel.findOne({
       friendCode: conversationDto.friendCode,
     });
     if (!interlocutor) throw new NotFoundException('Interlocutor not found');
 
     const conversationIsExists = await this.conversationModel.findOne({
-      users: { $all: [userId, interlocutor._id] },
+      users: { $all: [user, interlocutor._id] },
     });
     if (conversationIsExists)
       throw new ConflictException('Conversation already exists');
 
     const conversation = new this.conversationModel({
-      users: [userId, interlocutor._id],
+      users: [user, interlocutor._id],
     });
     const savedConversation = await conversation.save();
     return savedConversation;

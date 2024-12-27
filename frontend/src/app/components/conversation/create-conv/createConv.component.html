@@ -47,19 +47,29 @@
           @if(createConvForm.controls.friendCode.invalid &&
           (createConvForm.controls.friendCode.touched ||
           createConvForm.controls.friendCode.dirty)) {
-          @if(createConvForm.controls.friendCode.errors?.["minlength"]) {
-          <small class="text-red-500 mb-2"
+          <small
+            *ngIf="createConvForm.controls.friendCode.errors?.['minlength']"
+            class="text-red-500 mb-2"
             >*Friend code must be 6 characters</small
           >
-          } @if(createConvForm.controls.friendCode.errors?.["numeric"]) {
-          <small class="text-red-500 mb-2">
+          <small
+            *ngIf="createConvForm.controls.friendCode.errors?.['numeric']"
+            class="text-red-500 mb-2"
+          >
             *Friend code must contain only numbers
           </small>
-          } }
+          }
           <button mat-flat-button class="w-[400px]" type="submit">
             Create
           </button>
         </form>
+        <div
+          *ngIf="formSubmissionErrorMessage() !== ''"
+          class="mt-2 border-l-4 border-red-500 bg-red-500/20 rounded-r-lg text-red-400 p-2 pl-6"
+        >
+          <span class="font-bold text-red-400">ERROR : </span
+          >{{ formSubmissionErrorMessage() }}
+        </div>
       </div>
     </div>
   </div>
