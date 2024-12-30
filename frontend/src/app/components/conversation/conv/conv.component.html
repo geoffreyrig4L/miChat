@@ -1,23 +1,28 @@
 <div class="flex flex-col h-[95%]">
   <div id="head" class="bg-[#515151] py-4 px-16">
-    <div class="flex gap-4">
-      <div class="avatar">
-        <div class="w-16 rounded-full">
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-          />
+    <div class="flex flex-row justify-between w-full items-center">
+      <div class="flex gap-4">
+        <div class="avatar">
+          <div class="w-16 rounded-full ring-2 ring-pink-600">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col justify-between">
+          <h4 class="!text-lg !font-bold !m-0">
+            {{ conv.interlocutor.username }}
+          </h4>
+          @if(conv.interlocutor.online){
+          <h5 class="!text-base !font-light !m-0">Online</h5>
+          }@else {
+          <h5 class="!text-base !font-light !m-0">Offline</h5>
+          }
         </div>
       </div>
-      <div class="flex flex-col justify-between">
-        <h4 class="!text-lg !font-bold !m-0">
-          {{ conv.interlocutor.username }}
-        </h4>
-        @if(conv.interlocutor.online){
-        <h5 class="!text-base !font-light !m-0">Online</h5>
-        }@else {
-        <h5 class="!text-base !font-light !m-0">Offline</h5>
-        }
-      </div>
+      <button onclick="modal_delete_conv.showModal()">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
     </div>
   </div>
   <div
@@ -58,3 +63,28 @@
     />
   </div>
 </div>
+<dialog id="modal_delete_conv" class="modal">
+  <div class="modal-box bg-[#333333]">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+
+    <h3>Are you sure to delete this conversation ?</h3>
+    <button
+      mat-flat-button
+      class="!bg-red-500 hover:scale-[105%] hover:transition-all hover:duration-[500ms]"
+      (click)="deleteConversation()"
+    >
+      Delete
+    </button>
+    <div
+      *ngIf="formSubmissionErrorMessage() !== ''"
+      class="mt-6 border-l-4 border-red-500 bg-red-500/20 rounded-r-lg text-red-400 p-2 pl-6"
+    >
+      <span class="font-bold text-red-400">ERROR : </span
+      >{{ formSubmissionErrorMessage() }}
+    </div>
+  </div>
+</dialog>

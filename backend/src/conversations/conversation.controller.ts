@@ -1,5 +1,20 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { PassportJwtGuard } from '@src/auth/guards/passport-jwt.guard';
 import { ConversationDto } from './conversation.dto';
 import { ConversationService } from './conversation.service';
@@ -28,5 +43,14 @@ export class ConversationController {
   @ApiBearerAuth()
   async create(@Body() conversationDto: ConversationDto, @Req() request) {
     return this.conversationService.create(conversationDto, request.user);
+  }
+
+  @Delete('/:id')
+  @UseGuards(PassportJwtGuard)
+  @ApiOperation({ summary: 'Delete your conversation' })
+  @ApiParam({ name: 'id', required: true })
+  @ApiBearerAuth()
+  async delete(@Param() conversationId: string, @Req() request) {
+    return this.conversationService.delete(conversationId, request.user._id);
   }
 }

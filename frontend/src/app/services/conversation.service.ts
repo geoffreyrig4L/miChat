@@ -34,6 +34,14 @@ export class ConversationService {
     );
   }
 
+  deleteConversation(conversationId: string): Observable<String> {
+    const headers = this.getHeaders();
+    return this.http.delete<String>(
+      `${this.url}/conversation/${conversationId}`,
+      { headers }
+    );
+  }
+
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
 
