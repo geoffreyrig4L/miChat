@@ -4,9 +4,13 @@
 
 - npm run start
 
-# swagger
+  # swagger
 
-http://localhost:3000/api
+  http://localhost:3000/api
+
+  # faker js
+
+  - npm run seed
 
 ## frontend
 
