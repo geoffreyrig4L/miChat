@@ -8,7 +8,7 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   getAll(): Promise<User[] | null> {
-    return this.userModel.find().populate(['messages']);
+    return this.userModel.find();
   }
 
   getMyUser(userId: string): Promise<User | null> {
