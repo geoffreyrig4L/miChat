@@ -7,7 +7,12 @@ async function bootstrap() {
 
   const seedService = app.get(GenerateSeedService);
 
-  await seedService.seedUsers(10);
+  await seedService.emptyDb();
+
+  await seedService.seedUsers(5);
+
+  await seedService.seedConversation();
+
   console.log('Seeding complete.');
 
   await app.close();

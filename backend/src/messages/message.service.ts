@@ -48,9 +48,9 @@ export class MessageService {
     await findConversation.updateOne({
       $push: { messages: savedMessage._id },
     });
-    await findSender.updateOne({
-      $push: { messages: savedMessage._id },
-    });
+    // await findSender.updateOne({
+    //   $push: { messages: savedMessage._id },
+    // });
     return savedMessage;
   }
 }
