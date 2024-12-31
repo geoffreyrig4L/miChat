@@ -7,6 +7,8 @@ import { Message } from '@app/interface/message.interface';
 import { MessageToSendComponent } from '../messageToSend/messageToSend.component';
 import { ConversationService } from '@app/services/conversation.service';
 import { Router } from '@angular/router';
+import { UserService } from '@app/services/user.service';
+import { User } from '@app/interface/user.interface';
 
 @Component({
   selector: 'app-conv',
@@ -22,9 +24,12 @@ import { Router } from '@angular/router';
 })
 export class ConvComponent {
   private conversationService = inject(ConversationService);
+  private userService = inject(UserService);
   private router = inject(Router);
 
   formSubmissionErrorMessage = signal<string>('');
+
+  user: User | null = null;
 
   @Input() conv: Conversation = {
     _id: '',
@@ -52,12 +57,23 @@ export class ConvComponent {
           );
         }
       );
+      console.log(this.conv.messages[0].sender);
+    }
+
+    if (!this.user) {
+      this.userService.getUser().subscribe((user) => {
+        if (!user) {
+          this.userService.loadMyUser();
+        } else {
+          this.user = user;
+          console.log('user', user._id);
+        }
+      });
     }
   }
 
   deleteConversation() {
     //TODO affiche l'erreur, je pense que c'est parce qu'on charge la conv alors qu'elle est dead
-
     this.conversationService.deleteConversation(this.conv._id).subscribe({
       next: (response: String) => {
         console.log(response);

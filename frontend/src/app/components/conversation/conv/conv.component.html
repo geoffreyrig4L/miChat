@@ -27,40 +27,49 @@
   </div>
   <div
     id="content"
-    class="bg-[#333333] h-full px-16 py-8 flex flex-col justify-start overflow-y-auto"
+    class="flex flex-col items-center bg-[#333333] w-full overflow-hidden"
   >
-    @if(conv.messages.length > 0) { @for (message of conv.messages; track
-    message) {
-    <div class="flex flex-col space-y-1 chat chat-start">
-      <div class="chat-bubble bg-[#515151] text-white text-lg">
-        {{ message.content }}
+    <div class="w-[75%] flex flex-col bg-white/5 py-8 px-16 overflow-y-auto">
+      @if(conv.messages.length > 0) { @for (message of conv.messages; track
+      message) {
+      <div
+        class="flex flex-col space-y-1 chat"
+        [ngClass]="message.sender === user?._id ? 'chat-end' : 'chat-start'"
+      >
+        <div
+          class="chat-bubble text-white text-lg max-w-[55%]"
+          [ngClass]="
+            message.sender === user?._id ? 'bg-pink-700/50' : 'bg-[#515151]'
+          "
+        >
+          {{ message.content }}
+        </div>
+        <div class="text-white/50 text-sm">
+          {{ message.created_at | date : "short" }}
+        </div>
       </div>
-      <div class="text-white/50 text-sm">
-        {{ message.created_at | date : "short" }}
+      } }
+    </div>
+    <div id="foot" class="bg-[#515151] w-full">
+      <div class="bg-[#515151] w-[70%] m-auto p-2 flex gap-4 items-center">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Emoji icon"
+          fontIcon="tag_faces"
+          class="scale-125"
+        />
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Add icon"
+          fontIcon="add"
+          class="scale-125"
+        />
+        <app-message-to-send
+          [idConv]="conv._id"
+          [idInterlocutor]="conv.interlocutor._id"
+        />
       </div>
     </div>
-    } }
-  </div>
-  <div
-    id="foot"
-    class="bg-[#515151] w-[70%] m-auto p-2 flex gap-4 items-center"
-  >
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Emoji icon"
-      fontIcon="tag_faces"
-      class="scale-125"
-    />
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Add icon"
-      fontIcon="add"
-      class="scale-125"
-    />
-    <app-message-to-send
-      [idConv]="conv._id"
-      [idInterlocutor]="conv.interlocutor._id"
-    />
   </div>
 </div>
 <dialog id="modal_delete_conv" class="modal">
