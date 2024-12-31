@@ -9,9 +9,9 @@ async function bootstrap() {
 
   await seedService.emptyDb();
 
-  await seedService.seedUsers(5);
+  await seedService.seedUsers(20);
 
-  await seedService.seedConversation();
+  await seedService.seedConversationWithMessages();
 
   console.log('Seeding complete.');
 

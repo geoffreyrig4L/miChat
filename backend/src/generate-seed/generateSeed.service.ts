@@ -36,8 +36,8 @@ export class GenerateSeedService {
     await jojo.save();
 
     const rhum = new this.userModel({
-      email: 'rhum@gmail.com',
-      username: 'rhum',
+      email: 'rom@gmail.com',
+      username: 'rom',
       password,
       friendCode: faker.string.numeric({ length: 6 }),
     });
@@ -55,8 +55,12 @@ export class GenerateSeedService {
     }
   }
 
-  async seedConversation(): Promise<void> {
+  async seedConversationWithMessages(): Promise<void> {
+    await this.seedConversationToCreators('jojo');
+    await this.seedConversationToCreators('rom');
+
     const users = await this.userModel.find();
+
     for (const user of users) {
       const usersWithoutUser = users.filter((u) => u._id !== user._id);
       const randomUser =
@@ -74,24 +78,24 @@ export class GenerateSeedService {
 
   async seedMessages(
     conv: any,
-    senderId: Types.ObjectId,
-    receiverId: Types.ObjectId,
+    userId1: Types.ObjectId,
+    userId2: Types.ObjectId,
   ) {
     let messages = [];
 
     for (let i = 0; i < 10; i++) {
       const fakeMessage = new this.messageModel({
         content: faker.lorem.sentence(),
-        sender: senderId,
-        receiver: receiverId,
+        sender: userId1,
+        receiver: userId2,
         conversation: conv._id,
       });
       await fakeMessage.save();
 
       const fakeAnswer = new this.messageModel({
         content: faker.lorem.sentence(),
-        sender: receiverId,
-        receiver: senderId,
+        sender: userId2,
+        receiver: userId1,
         conversation: conv._id,
       });
       await fakeAnswer.save();
@@ -100,5 +104,22 @@ export class GenerateSeedService {
     }
 
     await conv.updateOne({ $push: { messages: { $each: messages } } });
+  }
+
+  async seedConversationToCreators(creatorUsername: string) {
+    const users = await this.userModel.find();
+    const creator = users.find((u) => u.username === creatorUsername);
+
+    const usersWithoutCreator = users.filter((u) => u._id !== creator._id);
+
+    for (const user of usersWithoutCreator) {
+      const fakeConversation = new this.conversationModel({
+        users: [creator._id, user._id],
+      });
+
+      await fakeConversation.save();
+
+      await this.seedMessages(fakeConversation, creator._id, user._id);
+    }
   }
 }

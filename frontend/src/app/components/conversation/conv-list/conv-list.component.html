@@ -1,78 +1,75 @@
-<div class="bg-white/20 h-full border-r-4 border-right-gradient">
-  <div class="flex flex-col justify-between h-full p-16">
-    <div class="flex flex-col space-y-8">
-      <div class="flex flex-row justify-between items-center">
-        <h1 class="!font-bold !m-0">Conversations</h1>
-        <button onclick="modal_my_user.showModal()">
-          <div class="avatar">
-            <div
-              class="w-12 rounded-full ring-2 ring-pink-600 ring-offset-4 ring-offset-[#333333]"
-            >
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
-            </div>
-          </div>
-        </button>
-      </div>
-
-      <div class="flex flex-col space-y-4">
-        <app-search-bar />
-        <div class="flex flex-wrap gap-4">
-          <button mat-flat-button class="!rounded-full !bg-pink-600">
-            All
-          </button>
-          <button mat-flat-button class="!rounded-full">Not read</button>
-          <button mat-flat-button class="!rounded-full">Favories</button>
-          <button mat-flat-button class="!rounded-full">Groups</button>
+<div
+  class="bg-white/20 h-full border-r-4 border-right-gradient flex flex-col justify-start p-8 overflow-hidden space-y-4"
+>
+  <div class="flex flex-row justify-between items-center">
+    <h1 class="!font-bold !m-0">Conversations</h1>
+    <button onclick="modal_my_user.showModal()">
+      <div class="avatar">
+        <div
+          class="w-12 rounded-full ring-2 ring-pink-600 ring-offset-4 ring-offset-[#333333]"
+        >
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+          />
         </div>
       </div>
-      @if(listConv !== null) {
-      <ul>
-        @for (conv of listConv; track conv) {
-        <li
-          class="my-4 cursor-pointer px-4 py-2 !m-0"
-          [ngClass]="conv._id === idConv ? 'bg-[#515151]' : ''"
-          (click)="nav(conv._id)"
-        >
-          <div class="flex gap-4">
-            <div class="avatar online">
-              <div class="w-16 rounded-full">
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
-              </div>
-            </div>
-            <div class="flex flex-col justify-between overflow-hidden">
-              <h4 class="!text-lg !font-bold !m-0">
-                {{ conv.interlocutor.username }}
-              </h4>
-              @if(conv.messages.length > 0) {
-              <h4 class="truncate !text-white/70">
-                {{ conv.messages[conv.messages.length - 1].content }}
-              </h4>
-              } @else {
-              <h4 class="!italic !text-white/70 truncate">
-                Envoyez le premier message
-              </h4>
-              }
-            </div>
-          </div>
-        </li>
-        <mat-divider class="!mt-0" />
-        } @empty {
-        <li class="p-8 text-lg opacity-80">You don't have any conversation</li>
-        }
-      </ul>
-      }
-    </div>
-    <button
-      mat-flat-button
-      (click)="redirectToCreateConvPage()"
-      class="w-full !font-bold"
-    >
-      Create a conversation
     </button>
   </div>
+  <div class="flex flex-col space-y-4">
+    <app-search-bar />
+    <div class="flex flex-wrap gap-4">
+      <button mat-flat-button class="!rounded-full !bg-pink-600">All</button>
+      <button mat-flat-button class="!rounded-full">Not read</button>
+      <button mat-flat-button class="!rounded-full">Favories</button>
+      <button mat-flat-button class="!rounded-full">Groups</button>
+    </div>
+  </div>
+  @if(listConv !== null) {
+  <ul
+    class="flex flex-col space-y-4 h-[80%] overflow-y-auto bg-white/5 rounded-md"
+  >
+    @for (conv of listConv; track conv) {
+    <li
+      class="my-4 cursor-pointer px-4 py-2 !m-0"
+      [ngClass]="conv._id === idConv ? 'bg-[#515151]' : ''"
+      (click)="nav(conv._id)"
+    >
+      <div class="flex gap-4">
+        <div class="avatar online">
+          <div class="w-16 rounded-full">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col justify-between overflow-hidden">
+          <h4 class="!text-lg !font-bold !m-0">
+            {{ conv.interlocutor.username }}
+          </h4>
+          @if(conv.messages.length > 0) {
+          <h4 class="truncate !text-white/70">
+            {{ conv.messages[conv.messages.length - 1].content }}
+          </h4>
+          } @else {
+          <h4 class="!italic !text-white/70 truncate">
+            Envoyez le premier message
+          </h4>
+          }
+        </div>
+      </div>
+    </li>
+    <mat-divider class="!mt-0" />
+    } @empty {
+    <li class="p-8 text-lg opacity-80">You don't have any conversation</li>
+    }
+  </ul>
+  }
+  <button
+    mat-flat-button
+    (click)="redirectToCreateConvPage()"
+    class="w-full !font-bold"
+  >
+    Create a conversation
+  </button>
 </div>
 <app-my-user />
