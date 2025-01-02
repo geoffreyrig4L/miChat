@@ -35,9 +35,9 @@ export class ConversationService {
     );
   }
 
-  deleteConversation(conversationId: string): Observable<String> {
+  deleteConversation(conversationId: string): Observable<Conversation> {
     const headers = getHeaders();
-    return this.http.delete<String>(
+    return this.http.delete<Conversation>(
       `${this.url}/conversation/${conversationId}`,
       { headers }
     );

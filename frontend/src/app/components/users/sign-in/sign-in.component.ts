@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Router } from '@angular/router';
 import { SignInResponse } from '@app/interface/signInResponse.interface';
 import { AuthService } from '@app/services/auth.service';
 import { UserService } from '@app/services/user.service';
@@ -24,7 +23,6 @@ import { UserService } from '@app/services/user.service';
 export class SignInComponent {
   private userService = inject(UserService);
   private authService = inject(AuthService);
-  private route = inject(Router);
 
   username = new FormControl('');
   password = new FormControl('');
@@ -38,7 +36,7 @@ export class SignInComponent {
         .subscribe({
           next: (response: SignInResponse) => {
             this.authService.signIn(response.token);
-            this.route.navigateByUrl('/');
+            window.location.replace('/');
           },
           error: (err) =>
             alert('Erreur lors de la connexion : \n' + err.message),
