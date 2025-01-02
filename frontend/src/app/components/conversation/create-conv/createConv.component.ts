@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { ErrorMessageComponent } from '@app/components/form-validation-message/error-message/error-message.component';
 import { Conversation } from '@app/interface/conversation.interface';
 import { User } from '@app/interface/user.interface';
 import { ConversationService } from '@app/services/conversation.service';
@@ -40,6 +41,7 @@ export function numericValidator(): ValidatorFn {
     ReactiveFormsModule,
     ClipboardModule,
     MatDividerModule,
+    ErrorMessageComponent,
     NgIf,
   ],
   templateUrl: './createConv.component.html',
@@ -96,8 +98,6 @@ export class CreateConv {
             this.router.navigate(['/', response._id]);
           },
           error: (err) => {
-            console.log('log');
-
             this.formSubmissionErrorMessage.set(err.error.message);
           },
         });

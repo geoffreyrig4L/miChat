@@ -4,6 +4,7 @@ import { environment } from '@environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../interface/user.interface';
 import { SignInResponse } from '@app/interface/signInResponse.interface';
+import { getHeaders } from '@app/utils/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,18 @@ export class UserService {
       password,
       email,
     });
+  }
+
+  updateUser(password: string, username: string): Observable<User> {
+    const headers = getHeaders();
+    return this.http.put<User>(
+      this.url + '/user',
+      {
+        username,
+        password,
+      },
+      { headers }
+    );
   }
 
   loadMyUser(): void {

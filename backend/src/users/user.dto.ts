@@ -13,14 +13,15 @@ export class UserDto {
     required: true,
     example: 'jojo',
   })
-  @IsNotEmpty()
   readonly username: string;
 
   @ApiProperty({
     type: String,
     required: true,
-    example: 'a1',
+    example: 'aaa',
   })
   @IsNotEmpty()
   readonly password: string;
+
+  readonly picture: string;
 }

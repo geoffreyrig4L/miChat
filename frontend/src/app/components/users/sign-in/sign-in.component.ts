@@ -5,10 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/services/auth.service';
-import { User } from '@app/interface/user.interface';
-import { UserService } from '@app/services/user.service';
 import { SignInResponse } from '@app/interface/signInResponse.interface';
+import { AuthService } from '@app/services/auth.service';
+import { UserService } from '@app/services/user.service';
 
 @Component({
   selector: 'sign-in',

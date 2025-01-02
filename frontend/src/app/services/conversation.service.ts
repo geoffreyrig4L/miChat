@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Conversation } from '@app/interface/conversation.interface';
+import { getHeaders } from '@app/utils/utils';
 import { environment } from '@environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -14,7 +15,7 @@ export class ConversationService {
 
   loadConversations(): void {
     if (this.conversations$.value.length === 0) {
-      const headers = this.getHeaders();
+      const headers = getHeaders();
 
       this.http
         .get<Conversation[]>(`${this.url}/conversation`, { headers })
@@ -26,7 +27,7 @@ export class ConversationService {
     friendCode: string,
     userId: string
   ): Observable<Conversation> {
-    const headers = this.getHeaders();
+    const headers = getHeaders();
     return this.http.post<Conversation>(
       `${this.url}/conversation`,
       { friendCode, userId },
@@ -35,21 +36,11 @@ export class ConversationService {
   }
 
   deleteConversation(conversationId: string): Observable<String> {
-    const headers = this.getHeaders();
+    const headers = getHeaders();
     return this.http.delete<String>(
       `${this.url}/conversation/${conversationId}`,
       { headers }
     );
-  }
-
-  getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-
-    if (!token) console.error('No token found');
-
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
   }
 
   getConversations(): Observable<Conversation[]> {

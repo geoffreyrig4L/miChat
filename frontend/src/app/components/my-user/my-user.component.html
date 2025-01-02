@@ -15,11 +15,68 @@
           </div>
         </div>
         <h4 class="!text-lg !font-bold !mb-0">{{ user?.username }}</h4>
+        <button
+          (click)="editUserFormOpened()"
+          class="underline text-lg !text-pink-600"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
 
       <button (click)="signOut()" class="underline text-lg !text-pink-600">
         <mat-icon>logout</mat-icon>
       </button>
     </div>
+    @if(editUser()) {
+    <div class="flex flex-col p-8 space-y-8">
+      <form
+        (ngSubmit)="submitUpdateUser($event)"
+        [formGroup]="UpdateUserForm"
+        class="flex flex-col space-y-5"
+      >
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            formControlName="username"
+            type="username"
+            id="username"
+            name="username"
+          />
+        </mat-form-field>
+        <h3 class="!font-bold">Confirm your password to validate</h3>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            type="password"
+            id="password"
+            name="password"
+            required
+          />
+        </mat-form-field>
+        <div class="flex flex-row space-x-4">
+          <button
+            mat-flat-button
+            class="!bg-red-500"
+            type="button"
+            (click)="editUserFormOpened()"
+          >
+            Cancel
+          </button>
+          <button mat-flat-button class="flex-1" type="submit">
+            Update my profile
+          </button>
+        </div>
+      </form>
+      <error-message
+        [errorMessage]="formSubmissionErrorMessage()"
+      ></error-message>
+    </div>
+
+    }<success-message
+      [successMessage]="formSubmissionSuccessMessage()"
+    ></success-message>
   </div>
 </dialog>
