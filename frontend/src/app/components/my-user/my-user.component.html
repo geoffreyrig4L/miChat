@@ -17,13 +17,16 @@
         <h2 class="!font-bold !mb-0">{{ user?.username }}</h2>
         <button
           (click)="editUserFormOpened()"
-          class="underline text-lg !text-pink-600"
+          class="underline text-lg !text-[var(--primary-color)]"
         >
           <mat-icon>edit</mat-icon>
         </button>
       </div>
 
-      <button (click)="signOut()" class="underline text-lg !text-pink-600">
+      <button
+        (click)="signOut()"
+        class="underline text-lg !text-[var(--primary-color)]"
+      >
         <mat-icon>logout</mat-icon>
       </button>
     </div>

@@ -11,7 +11,7 @@
           class="flex flex-row items-center space-x-4 text-xl text-white ml-10 p-4 rounded-full font-bold"
           [cdkCopyToClipboard]="user?.friendCode ?? ''"
           (cdkCopyToClipboardCopied)="copied.set(true)"
-          [class.bg-pink-600]="!copied()"
+          [class.bg-[var(--primary-color)]]="!copied()"
           [class.bg-green-600]="copied()"
         >
           <div>{{ user?.friendCode }}</div>

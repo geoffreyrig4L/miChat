@@ -6,6 +6,7 @@
   --electric-violet: oklch(53.18% 0.28 296.97);
   --vivid-pink: oklch(69.02% 0.277 332.77);
   --orange-red: oklch(63.32% 0.24 31.68);
+  --primary-color: rgb(219 39 119);
 
   --red-to-pink-to-purple-vertical-gradient: linear-gradient(
     180deg,

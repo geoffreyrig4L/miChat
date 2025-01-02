@@ -13,7 +13,7 @@
     </label>
     <ul
       tabindex="0"
-      class="dropdown-content menu bg-[#515151] rounded-box z-[20] w-full p-2 mt-2 shadow-lg [&_li>*:not(ul):not(.menu-title):active]:bg-[#333333]"
+      class="!flex-nowrap dropdown-content menu bg-[#515151] rounded-box z-[20] w-full p-2 mt-2 shadow-lg [&_li>*:not(ul):not(.menu-title):active]:bg-[#333333] overflow-y-auto h-[500px]"
     >
       @for (item of list; track item) {
       <li
