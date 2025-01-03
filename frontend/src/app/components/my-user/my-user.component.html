@@ -9,9 +9,7 @@
       <div class="flex flex-row space-x-4 items-center">
         <div class="avatar">
           <div class="w-12 rounded-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            />
+            <img src="./profile_picture.jpg" />
           </div>
         </div>
         <h2 class="!font-bold !mb-0">{{ user?.username }}</h2>
@@ -34,7 +32,7 @@
     <div class="flex flex-col p-8 pb-0 space-y-8">
       <form
         (ngSubmit)="submitUpdateUser($event)"
-        [formGroup]="UpdateUserForm"
+        [formGroup]="updateUserForm"
         class="flex flex-col space-y-5"
       >
         <mat-form-field>
@@ -47,6 +45,15 @@
             name="username"
           />
         </mat-form-field>
+        @if(updateUserForm.controls.password.invalid &&
+        (updateUserForm.controls.password.touched ||
+        updateUserForm.controls.password.dirty)) {
+        <small
+          *ngIf="updateUserForm.controls.username.errors?.['minlength']"
+          class="text-red-500 mb-2"
+          >*The username must be contains 3 characters</small
+        >
+        }
         <h3 class="!font-bold">Confirm your password to validate</h3>
         <mat-form-field>
           <mat-label>Password</mat-label>
@@ -59,6 +66,15 @@
             required
           />
         </mat-form-field>
+        @if(updateUserForm.controls.password.invalid &&
+        (updateUserForm.controls.password.touched ||
+        updateUserForm.controls.password.dirty)) {
+        <small
+          *ngIf="updateUserForm.controls.password.errors?.['required']"
+          class="text-red-500 mb-2"
+          >*The password is required to update your informations</small
+        >
+        }
         <div class="flex flex-row space-x-4">
           <button
             mat-flat-button

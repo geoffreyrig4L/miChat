@@ -15,12 +15,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
 import { ErrorMessageComponent } from '@app/components/form-validation-message/error-message/error-message.component';
 import { Conversation } from '@app/interface/conversation.interface';
 import { User } from '@app/interface/user.interface';
 import { ConversationService } from '@app/services/conversation.service';
 import { UserService } from '@app/services/user.service';
+import { SuccessMessageComponent } from './../../form-validation-message/success-message/success-message.component';
 
 export function numericValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -42,6 +42,7 @@ export function numericValidator(): ValidatorFn {
     ClipboardModule,
     MatDividerModule,
     ErrorMessageComponent,
+    SuccessMessageComponent,
     NgIf,
   ],
   templateUrl: './createConv.component.html',
@@ -50,9 +51,9 @@ export function numericValidator(): ValidatorFn {
 export class CreateConv {
   private userService = inject(UserService);
   private formBuilder = inject(FormBuilder);
-  private router = inject(Router);
   private conversationService = inject(ConversationService);
   formSubmissionErrorMessage = signal<string>('');
+  formSubmissionSuccessMessage = signal<string>('');
 
   protected copied = signal(false);
 
@@ -92,10 +93,13 @@ export class CreateConv {
         )
         .subscribe({
           next: (response: Conversation) => {
-            //TODO marche avec mais pas sans le log (des fois)
             console.log(response._id);
 
-            this.router.navigate(['/', response._id]);
+            this.formSubmissionSuccessMessage.set(
+              'Conversation created. You are being redirected...'
+            );
+
+            setTimeout(() => window.location.replace('/' + response._id), 1500);
           },
           error: (err) => {
             this.formSubmissionErrorMessage.set(err.error.message);

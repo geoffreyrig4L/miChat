@@ -9,6 +9,7 @@ import { User } from '@app/interface/user.interface';
 import { UserService } from './../../services/user.service';
 import { ErrorMessageComponent } from '../form-validation-message/error-message/error-message.component';
 import { SuccessMessageComponent } from '../form-validation-message/success-message/success-message.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-my-user',
@@ -18,6 +19,7 @@ import { SuccessMessageComponent } from '../form-validation-message/success-mess
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    NgIf,
     ErrorMessageComponent,
     SuccessMessageComponent,
   ],
@@ -31,10 +33,9 @@ export class MyUserComponent {
   formSubmissionErrorMessage = signal<string>('');
   formSubmissionSuccessMessage = signal<string>('');
 
-  //Validators.minLength(3)
-  UpdateUserForm = this.formBuilder.group({
-    username: [''],
-    password: [null],
+  updateUserForm = this.formBuilder.group({
+    username: ['', Validators.minLength(3)],
+    password: [null, Validators.required],
   });
 
   user: User | null = null;
@@ -61,11 +62,11 @@ export class MyUserComponent {
   submitUpdateUser(event: Event) {
     event.preventDefault();
 
-    if (this.UpdateUserForm.value.password) {
+    if (this.updateUserForm.value.password) {
       this.userService
         .updateUser(
-          this.UpdateUserForm.value.password,
-          this.UpdateUserForm.value.username ?? ''
+          this.updateUserForm.value.password,
+          this.updateUserForm.value.username ?? ''
         )
         .subscribe({
           next: (updatedUser: User) => {

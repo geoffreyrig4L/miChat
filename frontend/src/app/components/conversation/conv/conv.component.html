@@ -4,9 +4,7 @@
       <div class="flex gap-4">
         <div class="avatar">
           <div class="w-16 rounded-full ring-2 ring-[var(--primary-color)]">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            />
+            <img src="./profile_picture.jpg" />
           </div>
         </div>
         <div class="flex flex-col justify-between">
@@ -27,9 +25,11 @@
   </div>
   <div
     id="content"
-    class="flex flex-col items-center bg-[#333333] w-full overflow-hidden"
+    class="flex flex-col items-center bg-[#333333] w-full h-full overflow-hidden"
   >
-    <div class="w-[75%] flex flex-col bg-white/5 py-8 px-16 overflow-y-auto">
+    <div
+      class="w-[75%] flex flex-col bg-white/5 py-8 px-16 overflow-y-auto h-full"
+    >
       @if(conv.messages.length > 0) { @for (message of conv.messages; track
       message) {
       <div
@@ -48,7 +48,11 @@
           {{ message.created_at | date : "short" }}
         </div>
       </div>
-      } }
+      } } @else {
+      <h2 class="!italic !text-white/70 truncate p-8">
+        Send the first message
+      </h2>
+      }
     </div>
     <div id="foot" class="bg-[#515151] w-full">
       <div class="bg-[#515151] w-[70%] m-auto p-2 flex gap-4 items-center">

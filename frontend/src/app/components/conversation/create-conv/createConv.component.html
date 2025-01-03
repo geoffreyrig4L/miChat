@@ -50,13 +50,13 @@
           <small
             *ngIf="createConvForm.controls.friendCode.errors?.['minlength']"
             class="text-red-500 mb-2"
-            >*Friend code must be 6 characters</small
+            >*The friend code must be contains 6 characters</small
           >
           <small
             *ngIf="createConvForm.controls.friendCode.errors?.['numeric']"
             class="text-red-500 mb-2"
           >
-            *Friend code must contain only numbers
+            *The friend code must contain only numbers
           </small>
           }
           <button mat-flat-button class="w-[400px]" type="submit">
@@ -66,6 +66,9 @@
         <error-message
           [errorMessage]="formSubmissionErrorMessage()"
         ></error-message>
+        <success-message
+          [successMessage]="formSubmissionSuccessMessage()"
+        ></success-message>
       </div>
     </div>
   </div>

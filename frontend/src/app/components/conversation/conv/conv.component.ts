@@ -20,7 +20,6 @@ import { SuccessMessageComponent } from '@app/components/form-validation-message
     MatButtonModule,
     ErrorMessageComponent,
     SuccessMessageComponent,
-    NgIf,
   ],
   templateUrl: './conv.component.html',
   standalone: true,
@@ -80,7 +79,7 @@ export class ConvComponent {
           'Conversation deleted, redirecting to home page...'
         );
 
-        setTimeout(() => window.location.replace('/'), 3000);
+        setTimeout(() => window.location.replace('/'), 1500);
       },
       error: (err) => {
         this.formSubmissionErrorMessage.set(err.error.message);

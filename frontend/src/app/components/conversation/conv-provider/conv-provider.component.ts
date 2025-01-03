@@ -27,17 +27,41 @@ export class ConvProviderComponent implements OnInit {
       } else {
         this.listConv = conversations;
       }
-      this.listConv = conversations;
+
+      this.listConv = this.sortConversations(conversations);
+
       this.route.params.subscribe((params) => {
         if (params['id']) {
           this.conv =
             this.listConv.find((conv) => conv._id === params['id']) ?? null;
 
-          if (!this.conv) {
-            this.router.navigateByUrl('/');
-          }
+          //TODO - Checker si c'était pas utile
+          // if (!this.conv) {
+          // this.router.navigateByUrl('/');
+          // }
         }
       });
+    });
+  }
+
+  sortConversations(conversations: Conversation[]) {
+    return conversations.sort((a, b) => {
+      const aHasMessages = a.messages.length > 0;
+      const bHasMessages = b.messages.length > 0;
+
+      if (!aHasMessages && bHasMessages) return -1;
+      if (aHasMessages && !bHasMessages) return 1;
+
+      if (aHasMessages && bHasMessages) {
+        const aLastMessage = a.messages[a.messages.length - 1];
+        const bLastMessage = b.messages[b.messages.length - 1];
+        return (
+          new Date(bLastMessage.updated_at).getTime() -
+          new Date(aLastMessage.updated_at).getTime()
+        );
+      }
+
+      return 0;
     });
   }
 }
